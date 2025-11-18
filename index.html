@@ -1,0 +1,3128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weekly Goals – Danica</title>
+
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+
+<style>
+:root {
+  --bg: #ffffff;
+  --gold: #d4af37;
+  --gold-soft: #f2dd99;
+  --text: #2b2c30;
+  --muted: #8a8c90;
+  --border: #eee4cc;
+  --paper: #ffffff;
+  --shadow: rgba(0,0,0,0.06);
+}
+
+/* Base */
+html {
+  background: #ffffff;
+  color-scheme: light;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Georgia", serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(circle at top, #ffffff, #faf3dd);
+}
+
+/* Background options */
+body[data-bg="plain"] {
+  background: #ffffff;
+}
+body[data-bg="soft"] {
+  background: radial-gradient(circle at top, #ffffff, #faf3dd);
+}
+body[data-bg="golden"] {
+  background: linear-gradient(135deg, #ffffff, #f7e7b8);
+}
+body[data-bg="floral"] {
+  background: radial-gradient(circle at top left, #ffffff, #f9f1e4);
+}
+body[data-bg="scripture"] {
+  background: repeating-linear-gradient(
+    180deg,
+    #ffffff,
+    #ffffff 20px,
+    #f7f0e0 21px
+  );
+}
+body[data-bg="sky"] {
+  background: linear-gradient(180deg, #e0f2fe, #ffffff);
+}
+body[data-bg="rose"] {
+  background: radial-gradient(circle at top, #fff1f2, #ffffff);
+}
+body[data-bg="mint"] {
+  background: radial-gradient(circle at top, #d1fae5, #ffffff);
+}
+
+/* Dark theme overrides */
+body[data-theme="dark"] {
+  background: radial-gradient(circle at top, #020617, #020617);
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .card {
+  background: #020617;
+  border-color: #374151;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+}
+body[data-theme="dark"] .title {
+  color: #eab308;
+}
+body[data-theme="dark"] .verseBox {
+  background: #111827;
+  border-color: #4b5563;
+}
+body[data-theme="dark"] .verseText,
+body[data-theme="dark"] .godSaysText {
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .breakdownText,
+body[data-theme="dark"] .challengeBox,
+body[data-theme="dark"] .summaryText {
+  color: #9ca3af;
+}
+body[data-theme="dark"] .goalItem {
+  background: #111827;
+  border-color: #374151;
+}
+body[data-theme="dark"] .goalItem.done {
+  background: #1f2937;
+  border-color: #eab308;
+}
+body[data-theme="dark"] .goalRemove {
+  border-color: #4b5563;
+  background: #020617;
+  color: #9ca3af;
+}
+body[data-theme="dark"] .readingBox {
+  border-top-color: #374151;
+}
+body[data-theme="dark"] .readingBarOuter {
+  background: #111827;
+}
+body[data-theme="dark"] #weeklySummaryBtn,
+body[data-theme="dark"] #closeSummaryBtn,
+body[data-theme="dark"] .journalDeleteBtn,
+body[data-theme="dark"] .journalEditBtn,
+body[data-theme="dark"] #closeMenu,
+body[data-theme="dark"] .discardBtn,
+body[data-theme="dark"] .lockModalBtn,
+body[data-theme="dark"] .favoriteVerseBtn,
+body[data-theme="dark"] #confirmCancel {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-color: #4b5563;
+}
+body[data-theme="dark"] #addBtn,
+body[data-theme="dark"] #saveJournalBtn,
+body[data-theme="dark"] .saveBtn,
+body[data-theme="dark"] #lockSaveBtn,
+body[data-theme="dark"] #confirmOk {
+  background: #eab308;
+  color: #111827;
+}
+body[data-theme="dark"] .journalText,
+body[data-theme="dark"] #adverseVerseInput,
+body[data-theme="dark"] #adverseTitleInput {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .journalHistoryItem,
+body[data-theme="dark"] .favoriteItem {
+  background: #020617;
+  border-color: #374151;
+}
+body[data-theme="dark"] .emotionJar {
+  background: #020617;
+}
+body[data-theme="dark"] .emotionJarInner {
+  background: #111827;
+}
+body[data-theme="dark"] .bgBtn {
+  border-color: #4b5563;
+}
+body[data-theme="dark"] .bgBtn.active {
+  box-shadow: 0 0 0 2px #020617, 0 0 0 4px #eab308;
+}
+body[data-theme="dark"] .themeToggle {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .menuItem {
+  border-color: #374151;
+}
+body[data-theme="dark"] #adverseBreakdown {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+body[data-theme="dark"] #historyPinInput {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .readerCard {
+  background: #020617;
+  border-color: #374151;
+}
+body[data-theme="dark"] .readerBody {
+  color: #e5e7eb;
+}
+body[data-theme="dark"] .readerMeta,
+body[data-theme="dark"] .readerEmotions {
+  color: #9ca3af;
+}
+body[data-theme="dark"] .readerBackBtn,
+body[data-theme="dark"] .readerActionBtn {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+/* When menu or modal active */
+body.menu-active {
+  overflow: hidden;
+}
+body.menu-active #app {
+  filter: blur(3px);
+}
+body.modal-active {
+  overflow: hidden;
+}
+body.modal-active #app {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Loading screen */
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+#loadingTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+#loadingSubtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.dot-loader {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+.dot-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+  animation: pulse 1s infinite;
+}
+.dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+.dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pulse {
+  0%,100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* App wrapper */
+#app {
+  width: 100%;
+  max-width: 460px;
+  display: none;
+}
+.card {
+  background: var(--paper);
+  padding: 20px 18px 22px;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 45px var(--shadow);
+}
+
+/* Header with menu + title + theme toggle */
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.titleLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.menuIcon {
+  border: none;
+  background: #fff6dd;
+  border-radius: 12px;
+  padding: 6px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.menuIcon span {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gold);
+}
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.themeToggle {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* Verse of the day box */
+.verseBox {
+  margin-top: 16px;
+  padding: 14px 14px 12px;
+  background: #fffdf6;
+  border-radius: 18px;
+  border: 1px solid var(--gold-soft);
+  position: relative;
+}
+.verseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.verseRef {
+  color: var(--gold);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+.verseMiniTag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.verseText {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+/* HEART BUTTONS – base light red, active bright red */
+.verseFavBtn,
+.journalFavBtn,
+.favoriteVerseBtn,
+#journalReaderFavorite {
+  border: none;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #b91c1c99;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.verseFavBtn:active,
+.journalFavBtn:active,
+.favoriteVerseBtn:active,
+#journalReaderFavorite:active {
+  transform: scale(0.97);
+}
+.verseFavBtn.active,
+.journalFavBtn.active,
+.favoriteVerseBtn.active,
+.readerActionBtn.favorite-active,
+#journalReaderFavorite.favorite-active {
+  background: #fecaca;
+  color: #b91c1c;
+  box-shadow: 0 0 0 1px #fecaca;
+}
+
+/* Specific verse heart styling */
+.verseFavBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+
+/* Text blocks */
+.breakdownLabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.breakdownText {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.godSaysLabel {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.godSaysText {
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-top: 3px;
+}
+
+/* Streak and challenge */
+.streakBox {
+  margin-top: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gold);
+}
+.challengeBox {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.challengeHighlight {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Progress */
+.progressRow {
+  margin: 16px 0 6px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+.progressBarOuter {
+  width: 100%;
+  height: 6px;
+  background: #f5eedb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+/* Goals */
+.goalsList {
+  margin-top: 10px;
+}
+.goalItem {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #f0e6d1;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.goalItem.done {
+  background: #fffbe3;
+  border-color: var(--gold-soft);
+}
+.goalItem input {
+  width: 20px;
+  height: 20px;
+}
+.goalText {
+  flex: 1;
+  cursor: pointer;
+}
+.goalRemove {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fffdf6;
+  padding: 2px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Add goal button */
+#addBtn {
+  margin: 18px 0 10px;
+  background: var(--gold);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Background choices */
+.bgOptions {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.bgButtons {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.bgBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  cursor: pointer;
+}
+.bgBtn[data-bg="plain"]   { background: #ffffff; }
+.bgBtn[data-bg="soft"]    { background: radial-gradient(circle at top, #ffffff, #faf3dd); }
+.bgBtn[data-bg="golden"]  { background: linear-gradient(135deg, #ffffff, #f7e7b8); }
+.bgBtn[data-bg="floral"]  { background: radial-gradient(circle at top left, #ffffff, #f9f1e4); }
+.bgBtn[data-bg="scripture"]{
+  background: repeating-linear-gradient(180deg, #ffffff, #ffffff 8px, #f7f0e0 9px);
+}
+.bgBtn[data-bg="sky"] {
+  background: linear-gradient(180deg, #e0f2fe, #ffffff);
+}
+.bgBtn[data-bg="rose"] {
+  background: radial-gradient(circle at top, #ffe4e6, #ffffff);
+}
+.bgBtn[data-bg="mint"] {
+  background: radial-gradient(circle at top, #bbf7d0, #ffffff);
+}
+.bgBtn.active {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--gold-soft);
+}
+
+/* Reading tracker */
+.readingBox {
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.readingTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+#readingList {
+  font-size: 0.9rem;
+}
+.readingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 6px;
+}
+.readingBookName {
+  flex: 1;
+}
+.readingControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.readingBtn {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff8e0;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.readingProgressLabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.readingBarOuter {
+  width: 100%;
+  height: 4px;
+  background: #f6eed7;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.readingBarFill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+}
+
+/* Weekly summary */
+#weeklySummaryBtn {
+  margin-top: 12px;
+  background: #fff6dd;
+  border: none;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Modals */
+#addModal,
+#goalNotesModal,
+#lockPromptModal,
+#lockSettingsModal,
+#confirmModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  overscroll-behavior: contain;
+}
+.modalContent {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--gold-soft);
+  width: 85%;
+  max-width: 360px;
+}
+.modalContent input,
+.modalContent textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-family: "Georgia", serif;
+  font-size: 0.9rem;
+}
+.modalContent textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+.modalBtns {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.saveBtn, .discardBtn, .lockModalBtn {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 48%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.saveBtn {
+  background: var(--gold);
+  color: white;
+}
+.discardBtn,
+.lockModalBtn {
+  background: #fff6dd;
+  color: var(--text);
+}
+
+/* Confirm modal specific */
+#confirmTitle {
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+#confirmMessage {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+#confirmCancel,
+#confirmOk {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 48%;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Added popup */
+#addedPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: var(--paper);
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--gold-soft);
+  font-weight: bold;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 120;
+}
+
+/* Swipe handle for menu */
+#swipeBar {
+  position: fixed;
+  left: 0;
+  top: 40%;
+  width: 28px;
+  height: 130px;
+  background: linear-gradient(90deg, #fff3bf, #d4af37);
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  opacity: 0.98;
+  z-index: 90;
+  display: none;
+}
+
+/* Menu panel */
+#journalPanel {
+  position: fixed;
+  left: -85%;
+  top: 0;
+  width: 85%;
+  height: 100%;
+  background: #ffffff;
+  border-right: 1px solid var(--gold-soft);
+  box-shadow: 6px 0 20px var(--shadow);
+  padding: 18px;
+  transition: left 0.25s ease-out;
+  z-index: 95;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.menuHeader {
+  margin-bottom: 8px;
+}
+.menuTitleRow {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--gold);
+}
+.menuSubtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.menuItems {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 10px;
+  flex-wrap: wrap;
+}
+.menuItem {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.menuItem.active {
+  background: var(--gold);
+  color: #ffffff;
+  border-color: var(--gold);
+}
+.menuSectionLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.menuSectionCard {
+  background: #fffdf6;
+  border-radius: 14px;
+  border: 1px solid var(--gold-soft);
+  padding: 10px;
+  margin-bottom: 12px;
+}
+#menuSections {
+  margin-top: 6px;
+}
+
+/* Journal section */
+.journalTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.journalTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--gold);
+}
+#journalLockSettingsBtn {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.journalTitleInputRow {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+#journalTitleInput {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+#saveJournalBtn {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--gold);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.journalText {
+  width: 100%;
+  height: 32%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fffdf6;
+  font-family: "Georgia";
+  resize: none;
+  margin-bottom: 10px;
+}
+
+/* Emotions */
+.emotionEntryBlock {
+  margin-bottom: 10px;
+}
+.emotionSection {
+  margin-top: 6px;
+}
+.emotionTitle {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.emotionHint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.emotionChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.emotionChip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  background: #ffffff;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.emotionChip.selected {
+  background: #fff6dd;
+  box-shadow: 0 0 0 1px var(--gold-soft);
+}
+.emotionChip:active {
+  transform: scale(0.97);
+}
+.emotionJar {
+  border-radius: 12px;
+  border: 1px solid var(--gold-soft);
+  padding: 10px;
+  background: #fffdf6;
+}
+.emotionJarLabel {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.emotionJarInner {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px dashed var(--gold-soft);
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: flex-end;
+  background: #ffffff;
+  margin-bottom: 6px;
+}
+.emotionPebble {
+  width: 10px;
+  height: 14px;
+  border-radius: 999px 999px 4px 4px;
+  opacity: 0.85;
+}
+.emotionJarSummary {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Journal history */
+.journalHistory {
+  margin-top: 10px;
+}
+.journalHistoryTitle {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+#journalHistoryLockBar {
+  display: none;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+#journalHistoryLockBar input {
+  flex: 1 1 100%;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+#journalHistoryLockBar button {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--gold);
+  color: #ffffff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+@media (min-width: 420px) {
+  #journalHistoryLockBar {
+    flex-wrap: nowrap;
+  }
+  #journalHistoryLockBar input {
+    flex: 1 1 auto;
+  }
+  #journalHistoryLockBar button {
+    width: auto;
+  }
+}
+#historyPinError {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 2px;
+  display: none;
+}
+#journalHistoryList {
+  font-size: 0.9rem;
+}
+.journalHistoryItem {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  background: #ffffff;
+}
+.journalHistoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+.journalHistoryMetaWrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  cursor: pointer;
+}
+.journalHistoryMetaTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+.journalHistoryMeta {
+  display: flex;
+  flex-direction: column;
+}
+.journalHistoryBody {
+  display: none;
+}
+.journalHistoryEmotions {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.journalHistoryBtns {
+  display: flex;
+  gap: 4px;
+}
+.journalDeleteBtn,
+.journalEditBtn,
+.journalFavBtn {
+  font-size: 0.78rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fff6dd;
+  color: var(--text);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Favorites section */
+.favoritesIntro {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.favoriteSectionTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+.favoriteList {
+  font-size: 0.9rem;
+}
+.favoriteItem {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  background: #ffffff;
+}
+.favoriteItemClickable {
+  cursor: pointer;
+}
+.favoriteItemTitle {
+  font-weight: bold;
+}
+.favoriteItemMeta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.favoriteVerseActions {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Addverse section */
+#adverseSection input,
+#adverseSection textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-family: "Georgia", serif;
+}
+#adverseBreakdownLabel {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+#adverseBreakdown {
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fffdf6;
+  font-size: 0.9rem;
+  font-family: "Georgia", serif;
+}
+#adverseControls {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+#adverseHighlightBtn,
+#adverseSaveBtn,
+#adverseClearBtn {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+#adverseSaveBtn {
+  background: var(--gold);
+  color: #ffffff;
+}
+
+/* Close menu button */
+#closeMenu {
+  width: 100%;
+  background: #fff6dd;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Weekly summary modal */
+#summaryModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 70;
+}
+.summaryContent {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--gold-soft);
+  width: 88%;
+  max-width: 380px;
+  font-size: 0.9rem;
+  overscroll-behavior: contain;
+}
+.summaryTitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.summarySectionTitle {
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 3px;
+}
+.summaryText {
+  color: var(--muted);
+  line-height: 1.35;
+}
+#closeSummaryBtn {
+  margin-top: 12px;
+  width: 100%;
+  background: #fff6dd;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Reader overlays */
+.readerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+}
+.readerCard {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--gold-soft);
+  width: 92%;
+  max-width: 430px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+}
+.readerBackRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.readerBackBtn {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff6dd;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.readerTitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.readerMeta {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.readerEmotions {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.readerBody {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-y: auto;
+  padding-right: 4px;
+  white-space: pre-wrap;
+}
+.readerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+.readerActionBtn {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* End CSS */
+</style>
+</head>
+
+<body>
+
+<!-- Loading -->
+<div id="loadingScreen">
+  <div id="loadingTitle">WEEKLY GOALS</div>
+  <div id="loadingSubtitle">for Danica♡</div>
+  <div class="dot-loader"><span></span><span></span><span></span></div>
+</div>
+
+<!-- Left handle for menu -->
+<div id="swipeBar"></div>
+
+<!-- Menu panel -->
+<div id="journalPanel">
+  <div class="menuHeader">
+    <div class="menuTitleRow">Menu</div>
+    <div class="menuSubtitle">Your journal, favorites, and study space.</div>
+  </div>
+
+  <div class="menuItems">
+    <div class="menuItem active" data-section="journal">Journal</div>
+    <div class="menuItem" data-section="favorites">Favorites</div>
+    <div class="menuItem" data-section="adverse">Addverse</div>
+  </div>
+
+  <div id="menuSections">
+    <!-- Journal section -->
+    <div id="journalSection">
+      <div class="menuSectionLabel">Daily journal</div>
+      <div class="menuSectionCard">
+        <div class="journalTitleRow">
+          <div class="journalTitle">Journal</div>
+          <button id="journalLockSettingsBtn">Journal history lock</button>
+        </div>
+
+        <div class="journalTitleInputRow">
+          <input id="journalTitleInput" placeholder="Journal title..." />
+          <button id="saveJournalBtn">Save</button>
+        </div>
+
+        <textarea id="journalText" class="journalText" placeholder="Write your prayers, thoughts, emotions..."></textarea>
+
+        <div class="emotionEntryBlock">
+          <div class="emotionTitle">Emotions for this entry</div>
+          <div class="emotionHint">Tap to tag today’s journal with how you feel.</div>
+          <div class="emotionChips" id="emotionEntryChips"></div>
+        </div>
+      </div>
+
+      <div class="menuSectionLabel">Emotions jar</div>
+      <div class="menuSectionCard">
+        <div class="emotionSection">
+          <div class="emotionTitle">Emotions Jar</div>
+          <div class="emotionHint">Tap a pebble in the jar to remove one emotion if it was added by accident.</div>
+          <div class="emotionJar">
+            <div class="emotionJarLabel">This week's jar</div>
+            <div class="emotionJarInner" id="emotionJarInner"></div>
+            <div class="emotionJarSummary" id="emotionJarSummary"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menuSectionLabel">History</div>
+      <div class="menuSectionCard">
+        <div class="journalHistory">
+          <div class="journalHistoryTitle">Journal history</div>
+          <div id="journalHistoryLockBar">
+            <input id="historyPinInput" type="password" maxlength="4" inputmode="numeric" placeholder="Enter 4-digit PIN" />
+            <button id="historyPinUnlockBtn">Unlock</button>
+          </div>
+          <div id="historyPinError">Incorrect PIN.</div>
+          <div id="journalHistoryList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites section -->
+    <div id="favoritesSection" style="display:none;">
+      <div class="menuSectionLabel">Favorites</div>
+      <div class="menuSectionCard">
+        <div class="journalTitle">Favorites</div>
+        <div class="favoritesIntro">
+          Verses and journals you tapped the heart on will appear here.
+        </div>
+
+        <div class="favoriteSectionTitle">Favorite verses</div>
+        <div id="favoriteVersesList" class="favoriteList"></div>
+
+        <div class="favoriteSectionTitle">Favorite journals</div>
+        <div id="favoriteJournalsList" class="favoriteList"></div>
+      </div>
+    </div>
+
+    <!-- Addverse section -->
+    <div id="adverseSection" style="display:none;">
+      <div class="menuSectionLabel">Addverse study</div>
+      <div class="menuSectionCard">
+        <div class="journalTitle">Addverse</div>
+        <div class="favoritesIntro">
+          Create your own study verses: title, verse, and a breakdown you can highlight and save to favorites.
+        </div>
+        <input id="adverseTitleInput" placeholder="Title (book / verse name, e.g. 'Romans 8:28')" />
+        <textarea id="adverseVerseInput" placeholder="Type your verse here..."></textarea>
+        <div id="adverseBreakdownLabel">Breakdown</div>
+        <div id="adverseBreakdown" contenteditable="true" placeholder="Break down the verse in your own words..."></div>
+        <div id="adverseControls">
+          <button id="adverseHighlightBtn">Highlight selection</button>
+          <button id="adverseSaveBtn">Save to favorites</button>
+          <button id="adverseClearBtn">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="closeMenu">Close</button>
+</div>
+
+<!-- Main app card -->
+<div id="app">
+  <div class="card">
+
+    <div class="titleRow">
+      <div class="titleLeft">
+        <button id="menuIcon" class="menuIcon" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="title">Weekly Goals</div>
+      </div>
+      <button id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
+    </div>
+
+    <div class="verseBox">
+      <div class="verseHeader">
+        <div class="verseRef" id="verseRef"></div>
+        <div class="verseMiniTag">Verse of the day</div>
+      </div>
+      <div class="verseText" id="verseText"></div>
+      <button id="verseFavBtn" class="verseFavBtn" aria-label="Favorite verse">♡</button>
+      <div class="breakdownLabel">Breakdown</div>
+      <div class="breakdownText" id="verseBreakdown"></div>
+      <div class="godSaysLabel">God says</div>
+      <div class="godSaysText" id="godSaysText"></div>
+    </div>
+
+    <div class="streakBox">Streak: <span id="streakCount">0</span> days</div>
+
+    <div class="challengeBox">
+      This week's spiritual challenge:
+      <span class="challengeHighlight" id="challengeText"></span>
+    </div>
+
+    <div class="challengeBox">
+      Today’s challenge from Dillan ❤️:
+      <span class="challengeHighlight" id="dailyChallengeText"></span>
+    </div>
+
+    <div class="progressRow">
+      <div>Completed: <span id="progressLabel">0 / 11</span></div>
+    </div>
+    <div class="progressBarOuter">
+      <div id="progressFill"></div>
+    </div>
+
+    <button id="addBtn">Add Goal</button>
+    <div class="goalsList" id="goalsList"></div>
+
+    <div class="bgOptions">
+      Background:
+      <div class="bgButtons">
+        <div class="bgBtn" data-bg="plain"   title="Plain"></div>
+        <div class="bgBtn" data-bg="soft"    title="Soft glow"></div>
+        <div class="bgBtn" data-bg="golden"  title="Golden"></div>
+        <div class="bgBtn" data-bg="floral"  title="Floral"></div>
+        <div class="bgBtn" data-bg="scripture" title="Scripture lines"></div>
+        <div class="bgBtn" data-bg="sky"     title="Sky"></div>
+        <div class="bgBtn" data-bg="rose"    title="Rose"></div>
+        <div class="bgBtn" data-bg="mint"    title="Mint"></div>
+      </div>
+    </div>
+
+    <div class="readingBox">
+      <div class="readingTitle">Bible reading tracker</div>
+      <div id="readingList"></div>
+    </div>
+
+    <button id="weeklySummaryBtn">Weekly Summary</button>
+
+  </div>
+</div>
+
+<!-- Add goal modal -->
+<div id="addModal">
+  <div class="modalContent">
+    <input id="newGoalInput" placeholder="Type new goal..." />
+    <div class="modalBtns">
+      <button class="discardBtn" id="discardGoal">Discard</button>
+      <button class="saveBtn" id="saveGoal">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Goal notes modal -->
+<div id="goalNotesModal">
+  <div class="modalContent">
+    <div style="font-weight:bold;color:var(--gold);margin-bottom:6px;" id="goalNotesTitle"></div>
+    <textarea id="goalWhyInput" placeholder="Why this goal matters to me..."></textarea>
+    <textarea id="goalHardInput" placeholder="What makes this hard right now..."></textarea>
+    <div class="modalBtns">
+      <button class="discardBtn" id="goalNotesCancel">Close</button>
+      <button class="saveBtn" id="goalNotesSave">Save notes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Journal lock PIN prompt (unused now for history open, kept for future) -->
+<div id="lockPromptModal" style="display:none;">
+  <div class="modalContent">
+    <div style="font-weight:bold;color:var(--gold);margin-bottom:6px;">Enter journal PIN</div>
+    <input id="lockPromptPin" type="password" maxlength="4" inputmode="numeric" placeholder="4-digit PIN" />
+    <div id="lockPromptError" style="color:#ef4444;font-size:0.85rem;margin-bottom:8px;display:none;">Incorrect PIN.</div>
+    <div class="modalBtns">
+      <button class="lockModalBtn" id="lockPromptCancel">Cancel</button>
+      <button class="saveBtn" id="lockPromptUnlock">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<!-- Journal lock settings -->
+<div id="lockSettingsModal">
+  <div class="modalContent">
+    <div style="font-weight:bold;color:var(--gold);margin-bottom:6px;">Journal history lock</div>
+    <div id="lockSettingsStatus" style="font-size:0.9rem;color:var(--muted);margin-bottom:8px;"></div>
+    <input id="lockNewPin" type="password" maxlength="4" inputmode="numeric" placeholder="New 4-digit PIN (leave empty to disable)" />
+    <div class="modalBtns">
+      <button class="lockModalBtn" id="lockSettingsCancel">Cancel</button>
+      <button class="saveBtn" id="lockSaveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Custom confirm modal -->
+<div id="confirmModal">
+  <div class="modalContent">
+    <div id="confirmTitle">Are you sure?</div>
+    <div id="confirmMessage"></div>
+    <div class="modalBtns">
+      <button id="confirmCancel">Cancel</button>
+      <button id="confirmOk">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Added popup -->
+<div id="addedPopup">Added</div>
+
+<!-- Weekly summary modal -->
+<div id="summaryModal">
+  <div class="summaryContent">
+    <div class="summaryTitle">Weekly Summary</div>
+    <div class="summaryText" id="summaryWeekLabel"></div>
+
+    <div class="summarySectionTitle">Streak</div>
+    <div class="summaryText" id="summaryStreakText"></div>
+
+    <div class="summarySectionTitle">Emotions Jar</div>
+    <div class="summaryText" id="summaryEmotionText"></div>
+
+    <div class="summarySectionTitle">Reflection</div>
+    <div class="summaryText">
+      • Where did you see God help you the most this week?<br>
+      • What was your hardest moment and how did God meet you there?<br>
+      • What is one thing you want to surrender next week?
+    </div>
+
+    <div class="summarySectionTitle">This Week's Challenge</div>
+    <div class="summaryText" id="summaryChallengeText"></div>
+
+    <button id="closeSummaryBtn">Close</button>
+  </div>
+</div>
+
+<!-- Full-screen Journal Reader -->
+<div id="journalReaderOverlay" class="readerOverlay">
+  <div class="readerCard">
+    <div class="readerBackRow">
+      <button id="journalReaderBack" class="readerBackBtn">← Back</button>
+      <div style="font-size:0.8rem;color:var(--muted);">Journal</div>
+    </div>
+    <div class="readerTitle" id="journalReaderTitle"></div>
+    <div class="readerMeta" id="journalReaderMeta"></div>
+    <div class="readerEmotions" id="journalReaderEmotions"></div>
+    <div class="readerBody" id="journalReaderBody"></div>
+    <div class="readerActions">
+      <button id="journalReaderFavorite" class="readerActionBtn">♡ Favorite</button>
+      <button id="journalReaderEdit" class="readerActionBtn">Edit</button>
+      <button id="journalReaderSave" class="readerActionBtn" style="display:none;">Save</button>
+      <button id="journalReaderDelete" class="readerActionBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Full-screen Verse Reader -->
+<div id="verseReaderOverlay" class="readerOverlay">
+  <div class="readerCard">
+    <div class="readerBackRow">
+      <button id="verseReaderBack" class="readerBackBtn">← Back</button>
+      <div style="font-size:0.8rem;color:var(--muted);">Verse</div>
+    </div>
+    <div class="readerTitle" id="verseReaderTitle"></div>
+    <div class="readerMeta" id="verseReaderMeta"></div>
+    <div class="readerBody" id="verseReaderBody"></div>
+    <div class="readerActions">
+      <button id="verseReaderUnfavorite" class="readerActionBtn">Unfavorite</button>
+      <button id="verseReaderEdit" class="readerActionBtn">Edit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const GOALS_KEY            = "danica_goals_v1";
+const DAY_KEY              = "danica_day_v1";
+const STREAK_KEY           = "danica_streak_v1";
+const JOURNAL_DRAFT_KEY    = "danica_journal_draft_";
+const JOURNAL_HISTORY_KEY  = "danica_journal_history_v1";
+const EMO_KEY_PREFIX       = "danica_emotions_";
+const BG_KEY               = "danica_bg_theme_v1";
+const READING_KEY          = "danica_reading_v1";
+const THEME_KEY            = "danica_theme_v1";
+const JOURNAL_LOCK_KEY     = "danica_journal_lock_v1";
+const FAV_VERSES_KEY       = "danica_fav_verses_v1";
+const FAV_JOURNALS_KEY     = "danica_fav_journals_v1";
+
+let baseGoals = [
+  "No swearing.",
+  "No gossiping.",
+  "Pray every night.",
+  "Pray every morning.",
+  "Bible study in the morning.",
+  "Bible study in the night.",
+  "Find Christ in at least one thing every day.",
+  "Be positive and thankful even when hopeless.",
+  "Be present with God.",
+  "Cut out lustful sins.",
+  "Start with God-centered relationship."
+];
+
+let currentGoalNotesIndex = null;
+let currentEntryEmotions = new Set();
+let editingJournalTs = null;
+let journalHistoryUnlockedSession = false;
+let currentVerse = null;
+let editingVerseId = null;
+
+let currentReaderJournalTs = null;
+let currentReaderVerseId = null;
+let journalReaderEditMode = false;
+
+/* Simple confirm dialog */
+let confirmCallback = null;
+function showConfirm(message, onConfirm) {
+  confirmCallback = onConfirm || null;
+  document.getElementById("confirmMessage").textContent = message;
+  document.getElementById("confirmModal").style.display = "flex";
+  document.body.classList.add("modal-active");
+}
+function closeConfirm() {
+  document.getElementById("confirmModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+}
+document.getElementById("confirmCancel").onclick = () => {
+  confirmCallback = null;
+  closeConfirm();
+};
+document.getElementById("confirmOk").onclick = () => {
+  const cb = confirmCallback;
+  confirmCallback = null;
+  closeConfirm();
+  if (cb) cb();
+};
+
+/* Verse data */
+const VERSES = [
+  {
+    ref: "Matthew 6:33",
+    text: "Seek first God’s kingdom and His righteousness, and the rest of your needs will be taken care of.",
+    breakdown: "Jesus teaches that when your focus is on God first, He provides everything else. These goals help build a life where Christ is first in speech, heart, purity, and habits—placing your life under His covering."
+  },
+  {
+    ref: "Philippians 4:6–7",
+    text: "Do not be anxious, but bring everything to God in prayer, and His peace will guard your heart and mind.",
+    breakdown: "Anxiety fades when prayer becomes the response. Praying morning and night and choosing gratitude train the heart to notice God's presence, allowing His peace to guard your emotions."
+  },
+  {
+    ref: "Psalm 119:9",
+    text: "How can a young person keep their way pure? By living according to God’s word.",
+    breakdown: "Purity requires Scripture-guided choices. Bible study morning and night and cutting out lustful habits strengthen the inner life and protect the heart."
+  }
+];
+
+const GOD_SAYS = [
+  "You are loved with an everlasting love.",
+  "I am with you even when you feel alone.",
+  "My grace is bigger than your mistakes.",
+  "Be still; I am fighting for you.",
+  "Nothing can separate you from My love.",
+  "I started a good work in you and I will finish it."
+];
+
+/* Emotions */
+const EMOTIONS = [
+  { id: "joy",      label: "Joy",      color: "#f97316" },
+  { id: "happy",    label: "Happy",    color: "#fde047" },
+  { id: "loved",    label: "Loved",    color: "#fb7185" },
+  { id: "peace",    label: "Peace",    color: "#22c55e" },
+  { id: "grateful", label: "Grateful", color: "#eab308" },
+  { id: "hopeful",  label: "Hopeful",  color: "#16a34a" },
+  { id: "calm",     label: "Calm",     color: "#38bdf8" },
+  { id: "excited",  label: "Excited",  color: "#a855f7" },
+  { id: "sad",      label: "Sad",      color: "#3b82f6" },
+  { id: "lonely",   label: "Lonely",   color: "#4b5563" },
+  { id: "anxious",  label: "Anxious",  color: "#6366f1" },
+  { id: "stressed", label: "Stressed", color: "#ef4444" },
+  { id: "guilty",   label: "Guilty",   color: "#7c3aed" }
+];
+
+const CHALLENGES = [
+  "Encourage one person with a message or call.",
+  "Spend 10 minutes in silent prayer each day.",
+  "Memorize one verse and repeat it when tempted.",
+  "Do one kind thing secretly without telling anyone.",
+  "Replace one negative thought each day with a promise from God.",
+  "Fast from complaining for 24 hours.",
+  "Write down three blessings each day."
+];
+
+const DAILY_CHALLENGES = [
+  "Send one encouraging message to someone who might need it.",
+  "Read one chapter of Proverbs and share one thing you learned.",
+  "Write down three things you love about how God made you.",
+  "Pray for someone who hurt you and release them to God.",
+  "Do one quiet act of kindness that nobody knows about.",
+  "Take a 5-minute break today just to breathe and thank God.",
+  "Finish your day by telling God honestly how you really feel."
+];
+
+/* Reading books */
+const READING_BOOKS = [
+  { id: "genesis",   name: "Genesis",   chapters: 50 },
+  { id: "exodus",    name: "Exodus",    chapters: 40 },
+  { id: "leviticus", name: "Leviticus", chapters: 27 },
+  { id: "numbers",   name: "Numbers",   chapters: 36 },
+  { id: "deuteronomy", name: "Deuteronomy", chapters: 34 },
+  { id: "joshua",    name: "Joshua",    chapters: 24 },
+  { id: "judges",    name: "Judges",    chapters: 21 },
+  { id: "ruth",      name: "Ruth",      chapters: 4  },
+  { id: "1samuel",   name: "1 Samuel",  chapters: 31 },
+  { id: "2samuel",   name: "2 Samuel",  chapters: 24 },
+  { id: "1kings",    name: "1 Kings",   chapters: 22 },
+  { id: "2kings",    name: "2 Kings",   chapters: 25 },
+  { id: "1chronicles", name: "1 Chronicles", chapters: 29 },
+  { id: "2chronicles", name: "2 Chronicles", chapters: 36 },
+  { id: "ezra",      name: "Ezra",      chapters: 10 },
+  { id: "nehemiah",  name: "Nehemiah",  chapters: 13 },
+  { id: "esther",    name: "Esther",    chapters: 10 },
+  { id: "job",       name: "Job",       chapters: 42 },
+  { id: "psalms",    name: "Psalms",    chapters: 150 },
+  { id: "proverbs",  name: "Proverbs",  chapters: 31 },
+  { id: "ecclesiastes", name: "Ecclesiastes", chapters: 12 },
+  { id: "songofsolomon", name: "Song of Solomon", chapters: 8 },
+  { id: "isaiah",    name: "Isaiah",    chapters: 66 },
+  { id: "jeremiah",  name: "Jeremiah",  chapters: 52 },
+  { id: "lamentations", name: "Lamentations", chapters: 5 },
+  { id: "ezekiel",   name: "Ezekiel",   chapters: 48 },
+  { id: "daniel",    name: "Daniel",    chapters: 12 },
+  { id: "hosea",     name: "Hosea",     chapters: 14 },
+  { id: "joel",      name: "Joel",      chapters: 3 },
+  { id: "amos",      name: "Amos",      chapters: 9 },
+  { id: "obadiah",   name: "Obadiah",   chapters: 1 },
+  { id: "jonah",     name: "Jonah",     chapters: 4 },
+  { id: "micah",     name: "Micah",     chapters: 7 },
+  { id: "nahum",     name: "Nahum",     chapters: 3 },
+  { id: "habakkuk",  name: "Habakkuk",  chapters: 3 },
+  { id: "zephaniah", name: "Zephaniah", chapters: 3 },
+  { id: "haggai",    name: "Haggai",    chapters: 2 },
+  { id: "zechariah", name: "Zechariah", chapters: 14 },
+  { id: "malachi",   name: "Malachi",   chapters: 4 },
+  { id: "matthew",   name: "Matthew",   chapters: 28 },
+  { id: "mark",      name: "Mark",      chapters: 16 },
+  { id: "luke",      name: "Luke",      chapters: 24 },
+  { id: "john",      name: "John",      chapters: 21 },
+  { id: "acts",      name: "Acts",      chapters: 28 },
+  { id: "romans",    name: "Romans",    chapters: 16 },
+  { id: "1corinthians", name: "1 Corinthians", chapters: 16 },
+  { id: "2corinthians", name: "2 Corinthians", chapters: 13 },
+  { id: "galatians", name: "Galatians", chapters: 6 },
+  { id: "ephesians", name: "Ephesians", chapters: 6 },
+  { id: "philippians", name: "Philippians", chapters: 4 },
+  { id: "colossians", name: "Colossians", chapters: 4 },
+  { id: "1thessalonians", name: "1 Thessalonians", chapters: 5 },
+  { id: "2thessalonians", name: "2 Thessalonians", chapters: 3 },
+  { id: "1timothy",  name: "1 Timothy", chapters: 6 },
+  { id: "2timothy",  name: "2 Timothy", chapters: 4 },
+  { id: "titus",     name: "Titus",     chapters: 3 },
+  { id: "philemon",  name: "Philemon",  chapters: 1 },
+  { id: "hebrews",   name: "Hebrews",   chapters: 13 },
+  { id: "james",     name: "James",     chapters: 5 },
+  { id: "1peter",    name: "1 Peter",   chapters: 5 },
+  { id: "2peter",    name: "2 Peter",   chapters: 3 },
+  { id: "1john",     name: "1 John",    chapters: 5 },
+  { id: "2john",     name: "2 John",    chapters: 1 },
+  { id: "3john",     name: "3 John",    chapters: 1 },
+  { id: "jude",      name: "Jude",      chapters: 1 },
+  { id: "revelation",name: "Revelation",chapters: 22 }
+];
+
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+function stripHtml(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html || "";
+  return div.textContent || "";
+}
+
+function today() {
+  return new Date().toDateString();
+}
+function getWeekId(dateObj) {
+  const d = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return d.getUTCFullYear() + "-W" + weekNo;
+}
+function currentWeekId() {
+  return getWeekId(new Date());
+}
+
+/* Theme */
+function applyTheme(theme) {
+  document.body.setAttribute("data-theme", theme);
+  localStorage.setItem(THEME_KEY, theme);
+  const toggle = document.getElementById("themeToggle");
+  if (toggle) toggle.textContent = theme === "dark" ? "Light" : "Dark";
+}
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || "light";
+  applyTheme(saved);
+  const toggle = document.getElementById("themeToggle");
+  if (toggle) {
+    toggle.onclick = () => {
+      const current = document.body.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      applyTheme(next);
+    };
+  }
+}
+
+/* Daily reset of goals + streak logic */
+function handleDailyReset() {
+  const lastDay = localStorage.getItem(DAY_KEY);
+  const todayStr = today();
+  if (lastDay !== todayStr) {
+    localStorage.setItem(DAY_KEY, todayStr);
+    localStorage.removeItem(GOALS_KEY);
+
+    const streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0, last: null };
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (streakData.last !== yesterday) {
+      streakData.streak = 0;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(streakData));
+    }
+  }
+}
+
+/* Goals */
+function loadGoals() {
+  return JSON.parse(localStorage.getItem(GOALS_KEY)) ||
+    baseGoals.map(g => ({ text: g, done: false, noteWhy: "", noteHard: "" }));
+}
+function saveGoals(arr) {
+  localStorage.setItem(GOALS_KEY, JSON.stringify(arr));
+}
+function renderGoals() {
+  const container = document.getElementById("goalsList");
+  container.innerHTML = "";
+  const goals = loadGoals();
+  let doneCount = 0;
+
+  goals.forEach((goal, index) => {
+    const div = document.createElement("div");
+    div.className = "goalItem" + (goal.done ? " done" : "");
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = goal.done;
+    cb.onchange = () => {
+      goal.done = cb.checked;
+      saveGoals(goals);
+      renderGoals();
+      updateStreak();
+    };
+
+    const label = document.createElement("div");
+    label.className = "goalText";
+    label.textContent = goal.text;
+    label.onclick = () => openGoalNotes(index);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "goalRemove";
+    removeBtn.textContent = "✕";
+    removeBtn.onclick = () => {
+      showConfirm("Are you sure you want to remove this goal?", () => {
+        goals.splice(index, 1);
+        saveGoals(goals);
+        renderGoals();
+        updateStreak();
+      });
+    };
+
+    div.appendChild(cb);
+    div.appendChild(label);
+    div.appendChild(removeBtn);
+    container.appendChild(div);
+
+    if (goal.done) doneCount++;
+  });
+
+  document.getElementById("progressLabel").textContent = `${doneCount} / ${goals.length || 0}`;
+  const total = goals.length || 1;
+  document.getElementById("progressFill").style.width = (doneCount / total) * 100 + "%";
+}
+
+/* Goal notes */
+function openGoalNotes(index) {
+  currentGoalNotesIndex = index;
+  const goals = loadGoals();
+  const goal = goals[index];
+  document.getElementById("goalNotesTitle").textContent = goal.text;
+  document.getElementById("goalWhyInput").value = goal.noteWhy || "";
+  document.getElementById("goalHardInput").value = goal.noteHard || "";
+  document.getElementById("goalNotesModal").style.display = "flex";
+  document.body.classList.add("modal-active");
+}
+document.getElementById("goalNotesCancel").onclick = () => {
+  document.getElementById("goalNotesModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+};
+document.getElementById("goalNotesSave").onclick = () => {
+  if (currentGoalNotesIndex == null) {
+    document.getElementById("goalNotesModal").style.display = "none";
+    document.body.classList.remove("modal-active");
+    return;
+  }
+  const goals = loadGoals();
+  const g = goals[currentGoalNotesIndex];
+  g.noteWhy = document.getElementById("goalWhyInput").value.trim();
+  g.noteHard = document.getElementById("goalHardInput").value.trim();
+  saveGoals(goals);
+  currentGoalNotesIndex = null;
+  document.getElementById("goalNotesModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+};
+
+/* Streak */
+function updateStreak() {
+  const goals = loadGoals();
+  if (goals.length === 0) {
+    document.getElementById("streakCount").textContent = 0;
+    return;
+  }
+  const allDone = goals.every(g => g.done);
+
+  let streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0, last: null };
+  const todayStr = today();
+
+  if (allDone) {
+    if (streakData.last !== todayStr) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      streakData.streak = (streakData.last === yesterday) ? streakData.streak + 1 : 1;
+      streakData.last = todayStr;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(streakData));
+    }
+  }
+  document.getElementById("streakCount").textContent = streakData.streak;
+}
+
+/* Verse + God says */
+function loadVerseAndGodSays() {
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const v = VERSES[dayIndex % VERSES.length];
+  const msg = GOD_SAYS[dayIndex % GOD_SAYS.length];
+
+  currentVerse = { ref: v.ref, text: v.text, breakdown: v.breakdown };
+
+  document.getElementById("verseRef").textContent = v.ref;
+  document.getElementById("verseText").textContent = v.text;
+  document.getElementById("verseBreakdown").textContent = v.breakdown;
+  document.getElementById("godSaysText").textContent = msg;
+
+  updateVerseFavButton();
+}
+
+/* Favorite verses */
+function loadFavoriteVerses() {
+  const raw = localStorage.getItem(FAV_VERSES_KEY);
+  if (!raw) return [];
+  try {
+    let arr = JSON.parse(raw) || [];
+    let changed = false;
+    arr.forEach(v => {
+      if (!v.id) {
+        v.id = genId();
+        changed = true;
+      }
+    });
+    if (changed) {
+      localStorage.setItem(FAV_VERSES_KEY, JSON.stringify(arr));
+    }
+    return arr;
+  } catch {
+    return [];
+  }
+}
+function saveFavoriteVerses(list) {
+  localStorage.setItem(FAV_VERSES_KEY, JSON.stringify(list));
+}
+function updateVerseFavButton() {
+  const btn = document.getElementById("verseFavBtn");
+  if (!btn || !currentVerse) return;
+  const list = loadFavoriteVerses();
+  const exists = list.some(v => !v.custom && v.ref === currentVerse.ref && v.text === currentVerse.text);
+  btn.textContent = exists ? "♥" : "♡";
+  btn.classList.toggle("active", !!exists);
+}
+function toggleCurrentVerseFavorite() {
+  if (!currentVerse) return;
+  const list = loadFavoriteVerses();
+  const idx = list.findIndex(v => !v.custom && v.ref === currentVerse.ref && v.text === currentVerse.text);
+  if (idx >= 0) {
+    showConfirm("Remove this verse from favorites?", () => {
+      list.splice(idx, 1);
+      saveFavoriteVerses(list);
+      updateVerseFavButton();
+      renderFavorites();
+    });
+  } else {
+    list.push({
+      id: genId(),
+      ref: currentVerse.ref,
+      text: currentVerse.text,
+      breakdown: currentVerse.breakdown,
+      dateSaved: new Date().toDateString(),
+      custom: false
+    });
+    saveFavoriteVerses(list);
+    updateVerseFavButton();
+    renderFavorites();
+  }
+}
+
+/* Daily challenge */
+function loadDailyChallenge() {
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const text = DAILY_CHALLENGES[dayIndex % DAILY_CHALLENGES.length];
+  document.getElementById("dailyChallengeText").textContent = text;
+}
+
+/* Add goal modal */
+document.getElementById("addBtn").onclick = () => {
+  document.getElementById("addModal").style.display = "flex";
+  document.body.classList.add("modal-active");
+};
+document.getElementById("discardGoal").onclick = () => {
+  document.getElementById("addModal").style.display = "none";
+  document.getElementById("newGoalInput").value = "";
+  document.body.classList.remove("modal-active");
+};
+document.getElementById("saveGoal").onclick = () => {
+  const text = document.getElementById("newGoalInput").value.trim();
+  if (!text) return;
+  const goals = loadGoals();
+  goals.push({ text, done: false, noteWhy: "", noteHard: "" });
+  saveGoals(goals);
+  document.getElementById("addModal").style.display = "none";
+  document.getElementById("newGoalInput").value = "";
+  document.body.classList.remove("modal-active");
+  showAddedPopup();
+  renderGoals();
+};
+function showAddedPopup() {
+  const p = document.getElementById("addedPopup");
+  p.style.opacity = "1";
+  p.style.transform = "translate(-50%, -50%) scale(1)";
+  setTimeout(() => {
+    p.style.opacity = "0";
+    p.style.transform = "translate(-50%, -50%) scale(0.8)";
+  }, 900);
+}
+
+/* Journal draft + history */
+function journalDraftKey() {
+  return JOURNAL_DRAFT_KEY + today();
+}
+function loadJournalHistory() {
+  const raw = localStorage.getItem(JOURNAL_HISTORY_KEY);
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch { return []; }
+}
+function saveJournalHistory(list) {
+  localStorage.setItem(JOURNAL_HISTORY_KEY, JSON.stringify(list));
+}
+function labelForEmotion(id) {
+  const f = EMOTIONS.find(e => e.id === id);
+  return f ? f.label : id;
+}
+function saveJournalEntry() {
+  const titleInput = document.getElementById("journalTitleInput");
+  const textArea   = document.getElementById("journalText");
+  const title = (titleInput.value || "").trim() || "Untitled";
+  const text  = (textArea.value || "").trim();
+  if (!text) return;
+
+  const list = loadJournalHistory();
+  if (editingJournalTs) {
+    const idx = list.findIndex(e => e.ts === editingJournalTs);
+    if (idx !== -1) {
+      list[idx].title = title;
+      list[idx].text = text;
+      list[idx].emotions = Array.from(currentEntryEmotions);
+      list[idx].date = today();
+    }
+  } else {
+    list.push({
+      date: today(),
+      title,
+      text,
+      emotions: Array.from(currentEntryEmotions),
+      ts: Date.now()
+    });
+  }
+  saveJournalHistory(list);
+
+  const draftKey = journalDraftKey();
+  localStorage.removeItem(draftKey);
+  editingJournalTs = null;
+  currentEntryEmotions.clear();
+  document.getElementById("journalTitleInput").value = "";
+  document.getElementById("journalText").value = "";
+  renderEmotionEntryChips();
+  renderJournalHistory();
+  renderEmotionSection();
+}
+function deleteJournalEntry(ts) {
+  showConfirm("Are you sure you want to delete this journal?", () => {
+    const list = loadJournalHistory();
+    const filtered = list.filter(entry => entry.ts !== ts);
+    saveJournalHistory(filtered);
+
+    let favJ = loadFavoriteJournals();
+    favJ = favJ.filter(e => e.ts !== ts);
+    saveFavoriteJournals(favJ);
+
+    renderJournalHistory();
+    renderEmotionSection();
+    renderFavorites();
+  });
+}
+function editJournalEntry(entry) {
+  editingJournalTs = entry.ts;
+  document.getElementById("journalTitleInput").value = entry.title;
+  document.getElementById("journalText").value = entry.text;
+  currentEntryEmotions = new Set(entry.emotions || []);
+  renderEmotionEntryChips();
+}
+
+/* Favorites: journals */
+function loadFavoriteJournals() {
+  const raw = localStorage.getItem(FAV_JOURNALS_KEY);
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch { return []; }
+}
+function saveFavoriteJournals(list) {
+  localStorage.setItem(FAV_JOURNALS_KEY, JSON.stringify(list));
+}
+function isJournalFavorited(ts) {
+  const list = loadFavoriteJournals();
+  return list.some(e => e.ts === ts);
+}
+function toggleJournalFavorite(entry) {
+  const list = loadFavoriteJournals();
+  const idx = list.findIndex(e => e.ts === entry.ts);
+  if (idx >= 0) {
+    showConfirm("Remove this journal from favorites?", () => {
+      list.splice(idx, 1);
+      saveFavoriteJournals(list);
+      renderJournalHistory();
+      renderFavorites();
+    });
+  } else {
+    list.push({
+      ts: entry.ts,
+      title: entry.title,
+      text: entry.text,
+      date: entry.date,
+      emotions: entry.emotions || []
+    });
+    saveFavoriteJournals(list);
+    renderJournalHistory();
+    renderFavorites();
+  }
+}
+function unfavoriteJournalFromFavorites(ts) {
+  showConfirm("Remove this journal from favorites?", () => {
+    let list = loadFavoriteJournals();
+    list = list.filter(e => e.ts !== ts);
+    saveFavoriteJournals(list);
+    renderFavorites();
+    renderJournalHistory();
+  });
+}
+
+/* Reader: Journal full-screen */
+function setJournalReaderMode(edit) {
+  journalReaderEditMode = edit;
+  const titleEl = document.getElementById("journalReaderTitle");
+  const bodyEl  = document.getElementById("journalReaderBody");
+  const emoEl   = document.getElementById("journalReaderEmotions");
+  const editBtn = document.getElementById("journalReaderEdit");
+  const saveBtn = document.getElementById("journalReaderSave");
+
+  if (edit) {
+    editBtn.textContent = "Cancel edit";
+    saveBtn.style.display = "inline-flex";
+    titleEl.setAttribute("contenteditable", "true");
+    bodyEl.setAttribute("contenteditable", "true");
+    emoEl.setAttribute("contenteditable", "true");
+    titleEl.focus();
+  } else {
+    editBtn.textContent = "Edit";
+    saveBtn.style.display = "none";
+    titleEl.removeAttribute("contenteditable");
+    bodyEl.removeAttribute("contenteditable");
+    emoEl.removeAttribute("contenteditable");
+  }
+}
+
+function openJournalReader(ts) {
+  const list = loadJournalHistory();
+  const entry = list.find(e => e.ts === ts);
+  if (!entry) return;
+  currentReaderJournalTs = ts;
+
+  const titleEl = document.getElementById("journalReaderTitle");
+  const metaEl  = document.getElementById("journalReaderMeta");
+  const emoEl   = document.getElementById("journalReaderEmotions");
+  const bodyEl  = document.getElementById("journalReaderBody");
+  const favBtn  = document.getElementById("journalReaderFavorite");
+
+  titleEl.textContent = entry.title;
+  metaEl.textContent = entry.date || "";
+  emoEl.textContent = (entry.emotions && entry.emotions.length)
+    ? "Emotions: " + entry.emotions.map(labelForEmotion).join(", ")
+    : "";
+  bodyEl.textContent = entry.text || "";
+
+  const fav = isJournalFavorited(entry.ts);
+  favBtn.textContent = fav ? "♥ Favorite" : "♡ Favorite";
+  favBtn.classList.toggle("favorite-active", fav);
+
+  setJournalReaderMode(false);
+  document.getElementById("journalReaderOverlay").style.display = "flex";
+  document.body.classList.add("modal-active");
+}
+function closeJournalReader() {
+  document.getElementById("journalReaderOverlay").style.display = "none";
+  document.body.classList.remove("modal-active");
+  currentReaderJournalTs = null;
+  setJournalReaderMode(false);
+}
+document.getElementById("journalReaderBack").onclick = closeJournalReader;
+document.getElementById("journalReaderFavorite").onclick = () => {
+  if (!currentReaderJournalTs) return;
+  const list = loadJournalHistory();
+  const entry = list.find(e => e.ts === currentReaderJournalTs);
+  if (!entry) return;
+  toggleJournalFavorite(entry);
+  const fav = isJournalFavorited(entry.ts);
+  const favBtn = document.getElementById("journalReaderFavorite");
+  favBtn.textContent = fav ? "♥ Favorite" : "♡ Favorite";
+  favBtn.classList.toggle("favorite-active", fav);
+};
+
+document.getElementById("journalReaderEdit").onclick = () => {
+  if (!currentReaderJournalTs) return;
+  setJournalReaderMode(!journalReaderEditMode);
+};
+
+document.getElementById("journalReaderSave").onclick = () => {
+  if (!currentReaderJournalTs) return;
+
+  const titleEl = document.getElementById("journalReaderTitle");
+  const emoEl   = document.getElementById("journalReaderEmotions");
+  const bodyEl  = document.getElementById("journalReaderBody");
+
+  const newTitle = (titleEl.textContent || "").trim() || "Untitled";
+  const newText  = (bodyEl.textContent || "").trim();
+
+  const list = loadJournalHistory();
+  const idx = list.findIndex(e => e.ts === currentReaderJournalTs);
+  if (idx < 0) return;
+
+  let newEmotions = list[idx].emotions || [];
+  const emoTextRaw = (emoEl.textContent || "").trim();
+  if (emoTextRaw.toLowerCase().startsWith("emotions:")) {
+    const part = emoTextRaw.substring(9).trim();
+    if (part) {
+      const names = part.split(",").map(s => s.trim()).filter(Boolean);
+      newEmotions = names.map(name => {
+        const f = EMOTIONS.find(e => e.label.toLowerCase() === name.toLowerCase());
+        return f ? f.id : name.toLowerCase();
+      });
+    } else {
+      newEmotions = [];
+    }
+  }
+
+  list[idx].title = newTitle;
+  list[idx].text = newText;
+  list[idx].emotions = newEmotions;
+  saveJournalHistory(list);
+
+  let favJ = loadFavoriteJournals();
+  const fidx = favJ.findIndex(e => e.ts === currentReaderJournalTs);
+  if (fidx >= 0) {
+    favJ[fidx].title = newTitle;
+    favJ[fidx].text = newText;
+    favJ[fidx].emotions = newEmotions;
+    favJ[fidx].date = list[idx].date;
+    saveFavoriteJournals(favJ);
+  }
+
+  setJournalReaderMode(false);
+  emoEl.textContent = newEmotions.length
+    ? "Emotions: " + newEmotions.map(labelForEmotion).join(", ")
+    : "";
+  renderJournalHistory();
+  renderFavorites();
+};
+
+document.getElementById("journalReaderDelete").onclick = () => {
+  if (!currentReaderJournalTs) return;
+  const ts = currentReaderJournalTs;
+  closeJournalReader();
+  deleteJournalEntry(ts);
+};
+
+/* Render journal history (locked/unlocked) */
+function renderJournalHistory() {
+  const container = document.getElementById("journalHistoryList");
+  if (!container) return;
+
+  const lockState = getJournalLock();
+  const locked = lockState.enabled && !journalHistoryUnlockedSession;
+
+  container.innerHTML = "";
+
+  if (locked) {
+    const info = document.createElement("div");
+    info.textContent = "Journal history is locked. Enter your PIN above to view it.";
+    info.style.color = "#9ca3af";
+    info.style.fontSize = "0.85rem";
+    container.appendChild(info);
+    return;
+  }
+
+  const list = loadJournalHistory().slice().sort((a,b)=>b.ts-a.ts);
+
+  if (list.length === 0) {
+    const empty = document.createElement("div");
+    empty.textContent = "No saved journals yet.";
+    empty.style.color = "#9ca3af";
+    empty.style.fontSize = "0.85rem";
+    container.appendChild(empty);
+    return;
+  }
+
+  list.forEach(entry => {
+    const item = document.createElement("div");
+    item.className = "journalHistoryItem";
+
+    const header = document.createElement("div");
+    header.className = "journalHistoryHeader";
+
+    const metaWrapAll = document.createElement("div");
+    metaWrapAll.className = "journalHistoryMetaWrap";
+
+    const metaTop = document.createElement("div");
+    metaTop.className = "journalHistoryMetaTop";
+
+    const metaWrap = document.createElement("div");
+    metaWrap.className = "journalHistoryMeta";
+
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = entry.title;
+
+    const dateSpan = document.createElement("span");
+    dateSpan.textContent = entry.date;
+    dateSpan.style.fontSize = "0.8rem";
+    dateSpan.style.color = "#9ca3af";
+
+    metaWrap.appendChild(titleSpan);
+    metaWrap.appendChild(dateSpan);
+    metaTop.appendChild(metaWrap);
+    metaWrapAll.appendChild(metaTop);
+
+    if (entry.emotions && entry.emotions.length) {
+      const emoSpan = document.createElement("span");
+      emoSpan.className = "journalHistoryEmotions";
+      emoSpan.textContent = "Emotions: " + (entry.emotions || []).map(labelForEmotion).join(", ");
+      metaWrapAll.appendChild(emoSpan);
+    }
+
+    const btnWrap = document.createElement("div");
+    btnWrap.className = "journalHistoryBtns";
+
+    const favBtn = document.createElement("button");
+    favBtn.className = "journalFavBtn";
+    const fav = isJournalFavorited(entry.ts);
+    favBtn.textContent = fav ? "♥" : "♡";
+    if (fav) favBtn.classList.add("active");
+    favBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      toggleJournalFavorite(entry);
+    };
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "journalDeleteBtn";
+    delBtn.textContent = "Delete";
+    delBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      deleteJournalEntry(entry.ts);
+    };
+
+    btnWrap.appendChild(favBtn);
+    btnWrap.appendChild(delBtn);
+
+    header.appendChild(metaWrapAll);
+    header.appendChild(btnWrap);
+
+    item.appendChild(header);
+    container.appendChild(item);
+
+    metaWrapAll.onclick = () => openJournalReader(entry.ts);
+  });
+}
+
+/* Emotions jar (weekly) */
+function loadEmotionsJar() {
+  const key = EMO_KEY_PREFIX + currentWeekId();
+  const raw = localStorage.getItem(key);
+  return raw ? JSON.parse(raw) : {};
+}
+function saveEmotionsJar(data) {
+  const key = EMO_KEY_PREFIX + currentWeekId();
+  localStorage.setItem(key, JSON.stringify(data));
+}
+function renderEmotionSection() {
+  const jarInner = document.getElementById("emotionJarInner");
+  const jarSummary = document.getElementById("emotionJarSummary");
+  if (!jarInner || !jarSummary) return;
+
+  const data = loadEmotionsJar();
+
+  jarInner.innerHTML = "";
+  const entries = Object.entries(data);
+  let total = 0;
+  entries.forEach(([_, c]) => total += c);
+
+  if (total === 0) {
+    jarSummary.textContent = "No emotions added yet this week.";
+    return;
+  }
+
+  const maxVisual = 60;
+  const factor = total > maxVisual ? maxVisual / total : 1;
+
+  entries.forEach(([id, count]) => {
+    const emo = EMOTIONS.find(e => e.id === id);
+    const visualCount = Math.max(1, Math.round(count * factor));
+    for (let i = 0; i < visualCount; i++) {
+      const pebble = document.createElement("div");
+      pebble.className = "emotionPebble";
+      pebble.style.backgroundColor = emo ? emo.color : "#e5c98a";
+      pebble.title = emo ? emo.label : id;
+      pebble.dataset.emotionId = id;
+      pebble.onclick = () => {
+        showConfirm("Remove one '" + labelForEmotion(id) + "' emotion from the jar?", () => {
+          removeEmotionFromJar(id);
+        });
+      };
+      jarInner.appendChild(pebble);
+    }
+  });
+
+  let topId = null, topCount = 0;
+  entries.forEach(([id, count]) => {
+    if (count > topCount) {
+      topCount = count;
+      topId = id;
+    }
+  });
+  const parts = entries.map(([id, c]) => `${labelForEmotion(id)} (${c})`);
+  const topText = topId ? `Most felt: ${labelForEmotion(topId)} (${topCount}). ` : "";
+  jarSummary.textContent = topText + "This week: " + parts.join(", ") + ".";
+}
+function addEmotionToJar(id) {
+  const data = loadEmotionsJar();
+  data[id] = (data[id] || 0) + 1;
+  saveEmotionsJar(data);
+  renderEmotionSection();
+}
+function removeEmotionFromJar(id) {
+  const data = loadEmotionsJar();
+  if (!data[id]) return;
+  data[id] = data[id] - 1;
+  if (data[id] <= 0) delete data[id];
+  saveEmotionsJar(data);
+  renderEmotionSection();
+}
+
+/* Emotions for entry (tags) */
+function renderEmotionEntryChips() {
+  const box = document.getElementById("emotionEntryChips");
+  if (!box) return;
+  box.innerHTML = "";
+  EMOTIONS.forEach(e => {
+    const btn = document.createElement("button");
+    btn.className = "emotionChip";
+    btn.textContent = e.label;
+    btn.style.borderColor = e.color;
+    btn.style.color = e.color;
+    if (currentEntryEmotions.has(e.id)) {
+      btn.classList.add("selected");
+    }
+    btn.onclick = () => {
+      if (currentEntryEmotions.has(e.id)) {
+        currentEntryEmotions.delete(e.id);
+      } else {
+        currentEntryEmotions.add(e.id);
+        addEmotionToJar(e.id);
+      }
+      renderEmotionEntryChips();
+    };
+    box.appendChild(btn);
+  });
+}
+
+/* Reading tracker */
+function loadReading() {
+  const raw = localStorage.getItem(READING_KEY);
+  if (!raw) return {};
+  try { return JSON.parse(raw); } catch { return {}; }
+}
+function saveReading(state) {
+  localStorage.setItem(READING_KEY, JSON.stringify(state));
+}
+function renderReading() {
+  const container = document.getElementById("readingList");
+  if (!container) return;
+
+  const state = loadReading();
+  container.innerHTML = "";
+
+  READING_BOOKS.forEach(book => {
+    const current = state[book.id] || 0;
+    const safeCurrent = Math.min(Math.max(current, 0), book.chapters);
+    const percent = (safeCurrent / book.chapters) * 100;
+
+    const row = document.createElement("div");
+    row.className = "readingRow";
+
+    const name = document.createElement("div");
+    name.className = "readingBookName";
+    name.textContent = book.name;
+
+    const controls = document.createElement("div");
+    controls.className = "readingControls";
+
+    const minus = document.createElement("button");
+    minus.className = "readingBtn";
+    minus.textContent = "-";
+    minus.onclick = () => {
+      const st = loadReading();
+      st[book.id] = Math.max((st[book.id] || 0) - 1, 0);
+      saveReading(st);
+      renderReading();
+    };
+
+    const label = document.createElement("span");
+    label.className = "readingProgressLabel";
+    label.textContent = `${safeCurrent}/${book.chapters}`;
+
+    const plus = document.createElement("button");
+    plus.className = "readingBtn";
+    plus.textContent = "+";
+    plus.onclick = () => {
+      const st = loadReading();
+      st[book.id] = Math.min((st[book.id] || 0) + 1, book.chapters);
+      saveReading(st);
+      renderReading();
+    };
+
+    controls.appendChild(minus);
+    controls.appendChild(label);
+    controls.appendChild(plus);
+
+    row.appendChild(name);
+    row.appendChild(controls);
+
+    const barOuter = document.createElement("div");
+    barOuter.className = "readingBarOuter";
+    const barFill = document.createElement("div");
+    barFill.className = "readingBarFill";
+    barFill.style.width = percent + "%";
+    barOuter.appendChild(barFill);
+
+    container.appendChild(row);
+    container.appendChild(barOuter);
+  });
+}
+
+/* Journal lock (history only) */
+function getJournalLock() {
+  const raw = localStorage.getItem(JOURNAL_LOCK_KEY);
+  if (!raw) return { enabled: false, pin: "" };
+  try { return JSON.parse(raw); } catch { return { enabled: false, pin: "" }; }
+}
+function setJournalLock(obj) {
+  localStorage.setItem(JOURNAL_LOCK_KEY, JSON.stringify(obj));
+}
+function setupHistoryLockUI() {
+  const lockState = getJournalLock();
+  const bar = document.getElementById("journalHistoryLockBar");
+  const err = document.getElementById("historyPinError");
+  if (!bar || !err) return;
+
+  if (!lockState.enabled) {
+    bar.style.display = "none";
+    err.style.display = "none";
+    journalHistoryUnlockedSession = true;
+    renderJournalHistory();
+    return;
+  }
+  bar.style.display = "flex";
+  err.style.display = "none";
+  if (!journalHistoryUnlockedSession) {
+    renderJournalHistory();
+  } else {
+    renderJournalHistory();
+  }
+}
+document.getElementById("historyPinUnlockBtn").onclick = () => {
+  const lockState = getJournalLock();
+  const input = document.getElementById("historyPinInput").value.trim();
+  const err = document.getElementById("historyPinError");
+  if (input === lockState.pin) {
+    journalHistoryUnlockedSession = true;
+    err.style.display = "none";
+    document.getElementById("historyPinInput").value = "";
+    renderJournalHistory();
+  } else {
+    err.style.display = "block";
+  }
+};
+
+document.getElementById("journalLockSettingsBtn").onclick = () => {
+  const state = getJournalLock();
+  const status = document.getElementById("lockSettingsStatus");
+  status.textContent = state.enabled ? "Currently: Journal history is locked with a PIN." : "Currently: Journal history is not locked.";
+  document.getElementById("lockNewPin").value = "";
+  document.getElementById("lockSettingsModal").style.display = "flex";
+  document.body.classList.add("modal-active");
+};
+document.getElementById("lockSettingsCancel").onclick = () => {
+  document.getElementById("lockSettingsModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+};
+document.getElementById("lockSaveBtn").onclick = () => {
+  const pin = document.getElementById("lockNewPin").value.trim();
+  if (!pin) {
+    setJournalLock({ enabled: false, pin: "" });
+    journalHistoryUnlockedSession = true;
+  } else if (pin.length === 4 && /^\d+$/.test(pin)) {
+    setJournalLock({ enabled: true, pin });
+    journalHistoryUnlockedSession = false;
+  }
+  document.getElementById("lockSettingsModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+  setupHistoryLockUI();
+};
+
+/* Emotions + journal init */
+function initJournal() {
+  const jt = document.getElementById("journalText");
+  const draftKey = journalDraftKey();
+  jt.value = localStorage.getItem(draftKey) || "";
+  jt.oninput = () => localStorage.setItem(draftKey, jt.value);
+
+  document.getElementById("saveJournalBtn").onclick = () => saveJournalEntry();
+
+  renderEmotionEntryChips();
+  renderEmotionSection();
+  setupHistoryLockUI();
+}
+
+/* Weekly challenge */
+function weekHash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(0)) >>> 0;
+  return h;
+}
+function loadChallenge() {
+  const wk = currentWeekId();
+  const idx = weekHash(wk) % CHALLENGES.length;
+  const text = CHALLENGES[idx];
+  document.getElementById("challengeText").textContent = text;
+  document.getElementById("summaryChallengeText").textContent = text;
+}
+
+/* Weekly summary modal */
+document.getElementById("weeklySummaryBtn").onclick = () => {
+  fillWeeklySummary();
+  document.getElementById("summaryModal").style.display = "flex";
+  document.body.classList.add("modal-active");
+};
+document.getElementById("closeSummaryBtn").onclick = () => {
+  document.getElementById("summaryModal").style.display = "none";
+  document.body.classList.remove("modal-active");
+};
+function fillWeeklySummary() {
+  const weekId = currentWeekId();
+  document.getElementById("summaryWeekLabel").textContent = "Week: " + weekId;
+
+  const streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0 };
+  document.getElementById("summaryStreakText").textContent =
+    "Current streak: " + streakData.streak + " days of fully completed goals.";
+
+  const emoData = loadEmotionsJar();
+  const entries = Object.entries(emoData);
+  if (entries.length === 0) {
+    document.getElementById("summaryEmotionText").textContent =
+      "No emotions logged in the jar yet this week.";
+  } else {
+    let total = 0;
+    let topId = null;
+    let topCount = 0;
+    entries.forEach(([id, c]) => {
+      total += c;
+      if (c > topCount) {
+        topCount = c;
+        topId = id;
+      }
+    });
+    const parts = entries.map(([id, c]) => `${labelForEmotion(id)} (${c})`);
+    const topText = topId ? `Most present emotion: ${labelForEmotion(topId)} (${topCount}). ` : "";
+    document.getElementById("summaryEmotionText").textContent =
+      topText + "Total logged: " + total + ". This week: " + parts.join(", ") + ".";
+  }
+}
+
+/* Background selection */
+function initBackground() {
+  const saved = localStorage.getItem(BG_KEY) || "soft";
+  document.body.setAttribute("data-bg", saved);
+  const buttons = document.querySelectorAll(".bgBtn");
+  buttons.forEach(btn => {
+    if (btn.getAttribute("data-bg") === saved) btn.classList.add("active");
+    btn.onclick = () => {
+      const theme = btn.getAttribute("data-bg");
+      localStorage.setItem(BG_KEY, theme);
+      document.body.setAttribute("data-bg", theme);
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
+  });
+}
+
+/* Favorites rendering */
+function renderFavorites() {
+  const versesList = document.getElementById("favoriteVersesList");
+  const journalList = document.getElementById("favoriteJournalsList");
+  if (versesList) {
+    const verses = loadFavoriteVerses();
+    versesList.innerHTML = "";
+    if (verses.length === 0) {
+      const d = document.createElement("div");
+      d.textContent = "No favorite verses yet.";
+      d.style.color = "#9ca3af";
+      d.style.fontSize = "0.85rem";
+      versesList.appendChild(d);
+    } else {
+      verses.forEach(v => {
+        const item = document.createElement("div");
+        item.className = "favoriteItem favoriteItemClickable";
+
+        const clickArea = document.createElement("div");
+        clickArea.style.display = "flex";
+        clickArea.style.flexDirection = "column";
+
+        const title = document.createElement("div");
+        title.className = "favoriteItemTitle";
+        title.textContent = v.ref;
+
+        const meta = document.createElement("div");
+        meta.className = "favoriteItemMeta";
+        meta.textContent = v.dateSaved || "";
+
+        const text = document.createElement("div");
+        text.style.marginTop = "2px";
+        text.textContent = v.text;
+
+        clickArea.appendChild(title);
+        clickArea.appendChild(meta);
+        clickArea.appendChild(text);
+
+        clickArea.onclick = () => openVerseReader(v.id);
+
+        const actions = document.createElement("div");
+        actions.className = "favoriteVerseActions";
+
+        const unfavBtn = document.createElement("button");
+        unfavBtn.className = "favoriteVerseBtn";
+        unfavBtn.textContent = "Unfavorite";
+        unfavBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          unfavoriteVerse(v.id);
+        };
+
+        actions.appendChild(unfavBtn);
+
+        if (v.custom) {
+          const editBtn = document.createElement("button");
+          editBtn.className = "favoriteVerseBtn";
+          editBtn.textContent = "Edit";
+          editBtn.onclick = (ev) => {
+            ev.stopPropagation();
+            startEditCustomVerse(v);
+            showMenuSection("adverse");
+            openMenu();
+          };
+          actions.appendChild(editBtn);
+        }
+
+        item.appendChild(clickArea);
+        item.appendChild(actions);
+        versesList.appendChild(item);
+      });
+    }
+  }
+
+  if (journalList) {
+    const journals = loadFavoriteJournals().slice().sort((a,b)=>b.ts-a.ts);
+    journalList.innerHTML = "";
+    if (journals.length === 0) {
+      const d = document.createElement("div");
+      d.textContent = "No favorite journals yet.";
+      d.style.color = "#9ca3af";
+      d.style.fontSize = "0.85rem";
+      journalList.appendChild(d);
+    } else {
+      journals.forEach(j => {
+        const item = document.createElement("div");
+        item.className = "favoriteItem favoriteItemClickable";
+
+        const clickArea = document.createElement("div");
+        clickArea.style.display = "flex";
+        clickArea.style.flexDirection = "column";
+
+        const title = document.createElement("div");
+        title.className = "favoriteItemTitle";
+        title.textContent = j.title;
+        const meta = document.createElement("div");
+        meta.className = "favoriteItemMeta";
+        meta.textContent = j.date || "";
+        const text = document.createElement("div");
+        text.style.marginTop = "2px";
+        text.textContent = (j.text || "").slice(0, 160) + (j.text && j.text.length > 160 ? "…" : "");
+
+        clickArea.appendChild(title);
+        clickArea.appendChild(meta);
+        clickArea.appendChild(text);
+
+        clickArea.onclick = () => openJournalReader(j.ts);
+
+        const actions = document.createElement("div");
+        actions.className = "favoriteVerseActions";
+
+        const unfavBtn = document.createElement("button");
+        unfavBtn.className = "favoriteVerseBtn";
+        unfavBtn.textContent = "Unfavorite";
+        unfavBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          unfavoriteJournalFromFavorites(j.ts);
+        };
+
+        actions.appendChild(unfavBtn);
+
+        item.appendChild(clickArea);
+        item.appendChild(actions);
+        journalList.appendChild(item);
+      });
+    }
+  }
+}
+function unfavoriteVerse(id) {
+  showConfirm("Remove this verse from favorites?", () => {
+    let list = loadFavoriteVerses();
+    list = list.filter(v => v.id !== id);
+    saveFavoriteVerses(list);
+    renderFavorites();
+    updateVerseFavButton();
+  });
+}
+
+/* Addverse logic */
+function clearAdverseInputs() {
+  document.getElementById("adverseTitleInput").value = "";
+  document.getElementById("adverseVerseInput").value = "";
+  document.getElementById("adverseBreakdown").innerHTML = "";
+  editingVerseId = null;
+}
+document.getElementById("adverseClearBtn").onclick = clearAdverseInputs;
+
+document.getElementById("adverseHighlightBtn").onclick = () => {
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0) return;
+  const range = selection.getRangeAt(0);
+  if (!document.getElementById("adverseBreakdown").contains(range.commonAncestorContainer)) return;
+
+  const selectedText = range.toString();
+  if (!selectedText) return;
+
+  const span = document.createElement("mark");
+  span.style.backgroundColor = "#fef08a";
+  span.appendChild(range.extractContents());
+  range.insertNode(span);
+  selection.removeAllRanges();
+};
+
+document.getElementById("adverseSaveBtn").onclick = () => {
+  const title = document.getElementById("adverseTitleInput").value.trim() || "Custom verse";
+  const verseText = document.getElementById("adverseVerseInput").value.trim();
+  const breakdownHtml = document.getElementById("adverseBreakdown").innerHTML.trim();
+  if (!verseText) return;
+
+  let list = loadFavoriteVerses();
+  if (editingVerseId) {
+    const idx = list.findIndex(v => v.id === editingVerseId);
+    if (idx >= 0) {
+      list[idx].ref = title;
+      list[idx].text = verseText;
+      list[idx].breakdown = stripHtml(breakdownHtml);
+      list[idx].breakdownHtml = breakdownHtml;
+      list[idx].custom = true;
+      list[idx].dateSaved = new Date().toDateString();
+    }
+  } else {
+    list.push({
+      id: genId(),
+      ref: title,
+      text: verseText,
+      breakdown: stripHtml(breakdownHtml),
+      breakdownHtml: breakdownHtml,
+      dateSaved: new Date().toDateString(),
+      custom: true
+    });
+  }
+  saveFavoriteVerses(list);
+  clearAdverseInputs();
+  renderFavorites();
+  showAddedPopup();
+};
+
+function startEditCustomVerse(v) {
+  editingVerseId = v.id;
+  document.getElementById("adverseTitleInput").value = v.ref || "";
+  document.getElementById("adverseVerseInput").value = v.text || "";
+  document.getElementById("adverseBreakdown").innerHTML = v.breakdownHtml || v.breakdown || "";
+}
+
+/* Reader: Verse full-screen */
+function openVerseReader(id) {
+  const list = loadFavoriteVerses();
+  const v = list.find(x => x.id === id);
+  if (!v) return;
+  currentReaderVerseId = id;
+
+  const titleEl = document.getElementById("verseReaderTitle");
+  const metaEl  = document.getElementById("verseReaderMeta");
+  const bodyEl  = document.getElementById("verseReaderBody");
+  const editBtn = document.getElementById("verseReaderEdit");
+
+  titleEl.textContent = v.ref;
+  metaEl.textContent = v.dateSaved || "";
+  const bodyText = v.custom
+    ? (v.text + "\n\n" + (v.breakdown || ""))
+    : (v.text + "\n\n" + (v.breakdown || ""));
+  bodyEl.textContent = bodyText;
+
+  editBtn.style.display = v.custom ? "inline-flex" : "none";
+
+  document.getElementById("verseReaderOverlay").style.display = "flex";
+  document.body.classList.add("modal-active");
+}
+function closeVerseReader() {
+  document.getElementById("verseReaderOverlay").style.display = "none";
+  document.body.classList.remove("modal-active");
+  currentReaderVerseId = null;
+}
+document.getElementById("verseReaderBack").onclick = closeVerseReader;
+document.getElementById("verseReaderUnfavorite").onclick = () => {
+  if (!currentReaderVerseId) return;
+  unfavoriteVerse(currentReaderVerseId);
+  closeVerseReader();
+};
+document.getElementById("verseReaderEdit").onclick = () => {
+  if (!currentReaderVerseId) return;
+  const list = loadFavoriteVerses();
+  const v = list.find(x => x.id === currentReaderVerseId);
+  if (!v || !v.custom) return;
+  closeVerseReader();
+  showMenuSection("adverse");
+  startEditCustomVerse(v);
+  openMenu();
+};
+
+/* Menu panel open/close */
+let menuOpen = false;
+const menuPanel = document.getElementById("journalPanel");
+const swipeBar = document.getElementById("swipeBar");
+
+function openMenu() {
+  const width = menuPanel.offsetWidth || (window.innerWidth * 0.85);
+  menuPanel.style.transition = "left 0.25s ease-out";
+  menuPanel.style.left = "0px";
+  menuOpen = true;
+  document.body.classList.add("menu-active");
+}
+function closeMenu() {
+  const width = menuPanel.offsetWidth || (window.innerWidth * 0.85);
+  menuPanel.style.transition = "left 0.25s ease-out";
+  menuPanel.style.left = (-width) + "px";
+  menuOpen = false;
+  document.body.classList.remove("menu-active");
+}
+document.getElementById("closeMenu").onclick = closeMenu;
+document.getElementById("menuIcon").onclick = openMenu;
+swipeBar.onclick = openMenu;
+
+/* Drag menu with handle only */
+let dragState = {
+  active: false,
+  startX: 0,
+  startLeft: 0,
+  width: 0
+};
+function beginDrag(e) {
+  const touch = e.touches[0];
+  dragState.active = true;
+  dragState.startX = touch.clientX;
+  const style = window.getComputedStyle(menuPanel);
+  dragState.startLeft = parseFloat(style.left) || 0;
+  dragState.width = menuPanel.offsetWidth || (window.innerWidth * 0.85);
+  menuPanel.style.transition = "none";
+  document.body.classList.add("menu-active");
+}
+function moveDrag(e) {
+  if (!dragState.active) return;
+  const touch = e.touches[0];
+  const dx = touch.clientX - dragState.startX;
+  let newLeft = dragState.startLeft + dx;
+  const minLeft = -dragState.width;
+  if (newLeft < minLeft) newLeft = minLeft;
+  if (newLeft > 0) newLeft = 0;
+  menuPanel.style.left = newLeft + "px";
+  e.preventDefault();
+}
+function endDrag() {
+  if (!dragState.active) return;
+  dragState.active = false;
+  const style = window.getComputedStyle(menuPanel);
+  const currentLeft = parseFloat(style.left) || 0;
+  const width = dragState.width || menuPanel.offsetWidth || (window.innerWidth * 0.85);
+  const threshold = -width / 2;
+  menuPanel.style.transition = "left 0.25s ease-out";
+  if (currentLeft > threshold) {
+    menuPanel.style.left = "0px";
+    menuOpen = true;
+    document.body.classList.add("menu-active");
+  } else {
+    menuPanel.style.left = (-width) + "px";
+    menuOpen = false;
+    document.body.classList.remove("menu-active");
+  }
+}
+swipeBar.addEventListener("touchstart", beginDrag, { passive: true });
+swipeBar.addEventListener("touchmove", moveDrag, { passive: false });
+swipeBar.addEventListener("touchend", endDrag, { passive: true });
+
+/* Close menu when clicking outside */
+document.addEventListener("click", (e) => {
+  if (!menuOpen) return;
+  const menuIconBtn = document.getElementById("menuIcon");
+  if (menuPanel.contains(e.target)) return;
+  if (menuIconBtn.contains(e.target)) return;
+  if (swipeBar.contains(e.target)) return;
+  closeMenu();
+});
+
+/* Menu sections switching */
+function showMenuSection(name) {
+  const journalSection = document.getElementById("journalSection");
+  const favoritesSection = document.getElementById("favoritesSection");
+  const adverseSection = document.getElementById("adverseSection");
+  const items = document.querySelectorAll(".menuItem");
+
+  items.forEach(i => {
+    const sec = i.getAttribute("data-section");
+    i.classList.toggle("active", sec === name);
+  });
+
+  journalSection.style.display = (name === "journal") ? "block" : "none";
+  favoritesSection.style.display = (name === "favorites") ? "block" : "none";
+  adverseSection.style.display = (name === "adverse") ? "block" : "none";
+
+  if (name === "favorites") {
+    renderFavorites();
+  }
+}
+document.querySelectorAll(".menuItem").forEach(item => {
+  item.onclick = () => {
+    const sec = item.getAttribute("data-section");
+    showMenuSection(sec);
+  };
+});
+
+/* Init */
+window.onload = () => {
+  setTimeout(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    document.getElementById("swipeBar").style.display = "block";
+
+    initTheme();
+    initBackground();
+    handleDailyReset();
+    loadVerseAndGodSays();
+    renderGoals();
+    updateStreak();
+    initJournal();
+    loadChallenge();
+    loadDailyChallenge();
+    renderReading();
+
+    const width = menuPanel.offsetWidth || (window.innerWidth * 0.85);
+    menuPanel.style.left = (-width) + "px";
+
+    const verseFavBtn = document.getElementById("verseFavBtn");
+    if (verseFavBtn) verseFavBtn.onclick = toggleCurrentVerseFavorite;
+  }, 1500);
+};
+</script>
+</body>
+</html>
