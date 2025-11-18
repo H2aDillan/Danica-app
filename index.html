@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weekly Goals – Danica</title>
+
+<style>
+:root {
+  --bg: #faf7f2;
+  --gold: #d4af37;
+  --gold-soft: #e8d7a7;
+  --text: #3b3b3b;
+  --muted: #7d7d7d;
+  --border: #e0dacb;
+  --paper: #fffdf8;
+  --shadow: rgba(0,0,0,0.08);
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY THEMES */
+body {
+  font-family: "Georgia", serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg);
+}
+
+body[data-bg="plain"] {
+  background: #faf7f2;
+}
+body[data-bg="soft"] {
+  background: radial-gradient(circle at top, #fdfaf2, #f6efe0);
+}
+body[data-bg="golden"] {
+  background: linear-gradient(135deg, #fbf7ec, #f1e0b8);
+}
+body[data-bg="floral"] {
+  background: radial-gradient(circle at top left, #fdf9f2, #f7f0e6);
+}
+body[data-bg="scripture"] {
+  background: repeating-linear-gradient(
+    180deg,
+    #faf7f2,
+    #faf7f2 20px,
+    #f5efe2 21px
+  );
+}
+
+/* LOADING SCREEN */
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+#loadingTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+
+#loadingSubtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.dot-loader {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.dot-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+  animation: pulse 1s infinite;
+}
+
+.dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+.dot-loader span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes pulse {
+  0%,100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* MAIN APP CARD */
+#app {
+  width: 100%;
+  max-width: 460px;
+  display: none;
+}
+
+.card {
+  background: var(--paper);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 35px var(--shadow);
+}
+
+/* HEADER */
+.titleRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* VERSE BOX */
+.verseBox {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--paper);
+  border-radius: 12px;
+  border: 1px solid var(--gold-soft);
+}
+
+.verseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.verseRef {
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.verseMiniTag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.verseText {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.breakdownLabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.breakdownText {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+/* GOD SAYS */
+.godSaysLabel {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.godSaysText {
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-top: 3px;
+}
+
+/* STREAK */
+.streakBox {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+/* CHALLENGE */
+.challengeBox {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.challengeHighlight {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* PROGRESS */
+.progressRow {
+  margin: 14px 0;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+.progressBarOuter {
+  width: 100%;
+  height: 6px;
+  background: #eee6cf;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+
+/* GOALS */
+.goalsList {
+  margin-top: 10px;
+}
+
+.goalItem {
+  background: var(--bg);
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.goalItem.done {
+  background: #fff7d6;
+  border-color: var(--gold-soft);
+}
+
+.goalItem input {
+  width: 20px;
+  height: 20px;
+}
+
+/* ADD GOAL BUTTON */
+#addBtn {
+  margin: 16px 0;
+  background: var(--gold);
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* BACKGROUND OPTIONS */
+.bgOptions {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.bgButtons {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+.bgBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  cursor: pointer;
+}
+
+.bgBtn[data-bg="plain"]   { background: #faf7f2; }
+.bgBtn[data-bg="soft"]    { background: radial-gradient(circle at top, #fdfaf2, #f6efe0); }
+.bgBtn[data-bg="golden"]  { background: linear-gradient(135deg, #fbf7ec, #f1e0b8); }
+.bgBtn[data-bg="floral"]  { background: radial-gradient(circle at top left, #fdf9f2, #f7f0e6); }
+.bgBtn[data-bg="scripture"]{
+  background: repeating-linear-gradient(180deg, #faf7f2, #faf7f2 8px, #f5efe2 9px);
+}
+
+.bgBtn.active {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--gold-soft);
+}
+
+/* WEEKLY SUMMARY BUTTON */
+#weeklySummaryBtn {
+  margin-top: 14px;
+  background: #ddd6c1;
+  border: none;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ADD GOAL MODAL */
+#addModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.modalContent {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--gold-soft);
+  width: 85%;
+  max-width: 360px;
+}
+
+.modalContent input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.modalBtns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.saveBtn, .discardBtn {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 48%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.saveBtn {
+  background: var(--gold);
+  color: white;
+}
+
+.discardBtn {
+  background: #ddd6c1;
+  color: var(--text);
+}
+
+/* ADDED POPUP */
+#addedPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: var(--paper);
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--gold-soft);
+  font-weight: bold;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 80;
+}
+
+/* JOURNAL SWIPE BAR */
+#swipeBar {
+  position: fixed;
+  left: 0;
+  top: 40%;
+  width: 14px;
+  height: 80px;
+  background: var(--gold);
+  border-radius: 0 10px 10px 0;
+  opacity: 0.8;
+  z-index: 90;
+  display: none; /* hidden until app shows */
+}
+
+/* JOURNAL PANEL */
+#journalPanel {
+  position: fixed;
+  left: -85%;
+  top: 0;
+  width: 85%;
+  height: 100%;
+  background: var(--paper);
+  border-right: 1px solid var(--gold-soft);
+  box-shadow: 6px 0 20px var(--shadow);
+  padding: 20px;
+  transition: left 0.25s ease-out;
+  z-index: 95;
+  overflow-y: auto;
+}
+
+.journalTitle {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.journalTitleInputRow {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+#journalTitleInput {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+#saveJournalBtn {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--gold);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.journalText {
+  width: 100%;
+  height: 32%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-family: "Georgia";
+  resize: none;
+  margin-bottom: 12px;
+}
+
+/* JOURNAL HISTORY */
+.journalHistory {
+  margin-top: 10px;
+}
+
+.journalHistoryTitle {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+#journalHistoryList {
+  font-size: 0.9rem;
+}
+
+.journalHistoryItem {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  background: #faf6ec;
+}
+
+.journalHistoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.journalHistoryMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.journalHistoryBody {
+  display: none;
+  margin-top: 4px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.journalDeleteBtn {
+  font-size: 0.78rem;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: #ef4444;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* EMOTIONS JAR */
+.emotionSection {
+  margin-top: 10px;
+}
+
+.emotionTitle {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.emotionHint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.emotionChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.emotionChip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-soft);
+  background: var(--bg);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.emotionChip:active {
+  transform: scale(0.97);
+}
+
+.emotionJar {
+  border-radius: 12px;
+  border: 1px solid var(--gold-soft);
+  padding: 10px;
+  background: #fffaf0;
+}
+
+.emotionJarLabel {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.emotionJarInner {
+  min-height: 40px;
+  border-radius: 10px;
+  border: 1px dashed var(--gold-soft);
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: flex-end;
+  background: #fffdf7;
+  margin-bottom: 6px;
+}
+
+.emotionPebble {
+  width: 10px;
+  height: 14px;
+  border-radius: 999px 999px 4px 4px;
+  opacity: 0.85;
+}
+
+.emotionJarSummary {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* JOURNAL CLOSE BUTTON */
+#closeJournal {
+  width: 100%;
+  background: #ddd6c1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 12px;
+  font-size: 1rem;
+}
+
+/* WEEKLY SUMMARY MODAL */
+#summaryModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 70;
+}
+
+.summaryContent {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--gold-soft);
+  width: 88%;
+  max-width: 380px;
+  font-size: 0.9rem;
+}
+
+.summaryTitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.summarySectionTitle {
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 3px;
+}
+
+.summaryText {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+#closeSummaryBtn {
+  margin-top: 12px;
+  width: 100%;
+  background: #ddd6c1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* END CSS */
+</style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <div id="loadingTitle">WEEKLY GOALS</div>
+  <div id="loadingSubtitle">for Danica♡</div>
+  <div class="dot-loader"><span></span><span></span><span></span></div>
+</div>
+
+<!-- JOURNAL SWIPE BAR (shown only after app load via JS) -->
+<div id="swipeBar"></div>
+
+<!-- JOURNAL PANEL -->
+<div id="journalPanel">
+  <div class="journalTitle">Journal</div>
+
+  <div class="journalTitleInputRow">
+    <input id="journalTitleInput" placeholder="Journal title..." />
+    <button id="saveJournalBtn">Save</button>
+  </div>
+
+  <textarea id="journalText" class="journalText" placeholder="Write your prayers, thoughts, emotions..."></textarea>
+
+  <div class="journalHistory">
+    <div class="journalHistoryTitle">Journal history</div>
+    <div id="journalHistoryList"></div>
+  </div>
+
+  <div class="emotionSection">
+    <div class="emotionTitle">Emotions Jar</div>
+    <div class="emotionHint">Tap how you feel. Tap pebbles in the jar to remove one.</div>
+    <div class="emotionChips" id="emotionChips"></div>
+    <div class="emotionJar">
+      <div class="emotionJarLabel">This week's jar</div>
+      <div class="emotionJarInner" id="emotionJarInner"></div>
+      <div class="emotionJarSummary" id="emotionJarSummary"></div>
+    </div>
+  </div>
+
+  <button id="closeJournal">Close</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="card">
+
+    <div class="titleRow">
+      <div class="title">Weekly Goals</div>
+    </div>
+
+    <div class="verseBox">
+      <div class="verseHeader">
+        <div class="verseRef" id="verseRef"></div>
+        <div class="verseMiniTag">Verse of the day</div>
+      </div>
+      <div class="verseText" id="verseText"></div>
+      <div class="breakdownLabel">Breakdown</div>
+      <div class="breakdownText" id="verseBreakdown"></div>
+      <div class="godSaysLabel">God says</div>
+      <div class="godSaysText" id="godSaysText"></div>
+    </div>
+
+    <div class="streakBox">Streak: <span id="streakCount">0</span> days</div>
+
+    <div class="challengeBox">
+      This week's spiritual challenge:
+      <span class="challengeHighlight" id="challengeText"></span>
+    </div>
+
+    <div class="progressRow">
+      <div>Completed: <span id="progressLabel">0 / 11</span></div>
+    </div>
+
+    <div class="progressBarOuter">
+      <div id="progressFill"></div>
+    </div>
+
+    <!-- ADD BUTTON -->
+    <button id="addBtn">Add Goal</button>
+
+    <!-- GOALS LIST -->
+    <div class="goalsList" id="goalsList"></div>
+
+    <!-- BACKGROUND OPTIONS -->
+    <div class="bgOptions">
+      Background:
+      <div class="bgButtons">
+        <div class="bgBtn" data-bg="plain"   title="Plain"></div>
+        <div class="bgBtn" data-bg="soft"    title="Soft glow"></div>
+        <div class="bgBtn" data-bg="golden"  title="Golden"></div>
+        <div class="bgBtn" data-bg="floral"  title="Floral"></div>
+        <div class="bgBtn" data-bg="scripture" title="Scripture lines"></div>
+      </div>
+    </div>
+
+    <button id="weeklySummaryBtn">Weekly Summary</button>
+
+  </div>
+</div>
+
+<!-- ADD GOAL MODAL -->
+<div id="addModal">
+  <div class="modalContent">
+    <input id="newGoalInput" placeholder="Type new goal..." />
+    <div class="modalBtns">
+      <button class="discardBtn" id="discardGoal">Discard</button>
+      <button class="saveBtn" id="saveGoal">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADDED POPUP -->
+<div id="addedPopup">Added</div>
+
+<!-- WEEKLY SUMMARY MODAL -->
+<div id="summaryModal">
+  <div class="summaryContent">
+    <div class="summaryTitle">Weekly Summary</div>
+    <div class="summaryText" id="summaryWeekLabel"></div>
+
+    <div class="summarySectionTitle">Streak</div>
+    <div class="summaryText" id="summaryStreakText"></div>
+
+    <div class="summarySectionTitle">Emotions Jar</div>
+    <div class="summaryText" id="summaryEmotionText"></div>
+
+    <div class="summarySectionTitle">Reflection</div>
+    <div class="summaryText">
+      • Where did you see God help you the most this week?<br>
+      • What is one habit you want to grow next week?<br>
+      • What blessing are you thankful for right now?
+    </div>
+
+    <div class="summarySectionTitle">This Week's Challenge</div>
+    <div class="summaryText" id="summaryChallengeText"></div>
+
+    <button id="closeSummaryBtn">Close</button>
+  </div>
+</div>
+
+<script>
+const GOALS_KEY            = "danica_goals_v1";
+const DAY_KEY              = "danica_day_v1";
+const STREAK_KEY           = "danica_streak_v1";
+const JOURNAL_DRAFT_KEY    = "danica_journal_draft_";
+const JOURNAL_HISTORY_KEY  = "danica_journal_history_v1";
+const EMO_KEY_PREFIX       = "danica_emotions_";
+const BG_KEY               = "danica_bg_theme_v1";
+
+let baseGoals = [
+  "No swearing.",
+  "No gossiping.",
+  "Pray every night.",
+  "Pray every morning.",
+  "Bible study in the morning.",
+  "Bible study in the night.",
+  "Find Christ in at least one thing every day.",
+  "Be positive and thankful even when hopeless.",
+  "Be present with God.",
+  "Cut out lustful sins.",
+  "Start with God-centered relationship."
+];
+
+const VERSES = [
+  {
+    ref: "Matthew 6:33",
+    text: "Seek first God’s kingdom and His righteousness, and the rest of your needs will be taken care of.",
+    breakdown: "Jesus teaches that when your focus is on God first, He provides everything else. These goals help build a life where Christ is first in speech, heart, purity, and habits—placing your life under His covering."
+  },
+  {
+    ref: "Philippians 4:6–7",
+    text: "Do not be anxious, but bring everything to God in prayer, and His peace will guard your heart and mind.",
+    breakdown: "Anxiety fades when prayer becomes the response. Praying morning and night and choosing gratitude train the heart to notice God's presence, allowing His peace to guard your emotions."
+  },
+  {
+    ref: "Psalm 119:9",
+    text: "How can a young person keep their way pure? By living according to God’s word.",
+    breakdown: "Purity requires Scripture-guided choices. Bible study morning and night and cutting out lustful habits strengthen the inner life and protect the heart."
+  }
+];
+
+const GOD_SAYS = [
+  "You are loved with an everlasting love.",
+  "I am with you even when you feel alone.",
+  "My grace is bigger than your mistakes.",
+  "Be still; I am fighting for you.",
+  "Nothing can separate you from My love.",
+  "I started a good work in you and I will finish it."
+];
+
+const EMOTIONS = [
+  { id: "joy",      label: "Joy",      color: "#f97316" },
+  { id: "peace",    label: "Peace",    color: "#22c55e" },
+  { id: "grateful", label: "Grateful", color: "#eab308" },
+  { id: "sad",      label: "Sad",      color: "#3b82f6" },
+  { id: "anxious",  label: "Anxious",  color: "#6366f1" },
+  { id: "stressed", label: "Stressed", color: "#ef4444" },
+  { id: "guilty",   label: "Guilty",   color: "#a855f7" },
+  { id: "hopeful",  label: "Hopeful",  color: "#16a34a" }
+];
+
+const CHALLENGES = [
+  "Encourage one person with a message or call.",
+  "Spend 10 minutes in silent prayer each day.",
+  "Memorize one verse and repeat it when tempted.",
+  "Do one kind thing secretly without telling anyone.",
+  "Replace one negative thought each day with a promise from God.",
+  "Fast from complaining for 24 hours.",
+  "Write down three blessings each day."
+];
+
+function today() {
+  return new Date().toDateString();
+}
+
+function getWeekId(dateObj) {
+  const d = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return d.getUTCFullYear() + "-W" + weekNo;
+}
+
+function currentWeekId() {
+  return getWeekId(new Date());
+}
+
+/* DAILY RESET */
+function handleDailyReset() {
+  const lastDay = localStorage.getItem(DAY_KEY);
+  const todayStr = today();
+  if (lastDay !== todayStr) {
+    localStorage.setItem(DAY_KEY, todayStr);
+    localStorage.removeItem(GOALS_KEY);
+
+    const streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0, last: null };
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (streakData.last !== yesterday) {
+      streakData.streak = 0;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(streakData));
+    }
+  }
+}
+
+/* GOALS */
+function loadGoals() {
+  return JSON.parse(localStorage.getItem(GOALS_KEY)) || baseGoals.map(g => ({ text: g, done: false }));
+}
+function saveGoals(arr) {
+  localStorage.setItem(GOALS_KEY, JSON.stringify(arr));
+}
+function renderGoals() {
+  const container = document.getElementById("goalsList");
+  container.innerHTML = "";
+  const goals = loadGoals();
+  let doneCount = 0;
+
+  goals.forEach((goal, i) => {
+    const div = document.createElement("div");
+    div.className = "goalItem" + (goal.done ? " done" : "");
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = goal.done;
+    cb.onchange = () => {
+      goal.done = cb.checked;
+      saveGoals(goals);
+      renderGoals();
+      updateStreak();
+    };
+
+    const label = document.createElement("div");
+    label.textContent = goal.text;
+
+    div.appendChild(cb);
+    div.appendChild(label);
+    container.appendChild(div);
+
+    if (goal.done) doneCount++;
+  });
+
+  document.getElementById("progressLabel").textContent = `${doneCount} / ${goals.length}`;
+  const percent = (doneCount / goals.length) * 100;
+  document.getElementById("progressFill").style.width = percent + "%";
+}
+
+function updateStreak() {
+  const goals = loadGoals();
+  const allDone = goals.every(g => g.done);
+
+  let streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0, last: null };
+  const todayStr = today();
+
+  if (allDone) {
+    if (streakData.last !== todayStr) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      streakData.streak = (streakData.last === yesterday) ? streakData.streak + 1 : 1;
+      streakData.last = todayStr;
+      localStorage.setItem(STREAK_KEY, JSON.stringify(streakData));
+    }
+  }
+
+  document.getElementById("streakCount").textContent = streakData.streak;
+}
+
+/* VERSE + GOD SAYS */
+function loadVerseAndGodSays() {
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const v = VERSES[dayIndex % VERSES.length];
+  const msg = GOD_SAYS[dayIndex % GOD_SAYS.length];
+
+  document.getElementById("verseRef").textContent = v.ref;
+  document.getElementById("verseText").textContent = v.text;
+  document.getElementById("verseBreakdown").textContent = v.breakdown;
+  document.getElementById("godSaysText").textContent = msg;
+}
+
+/* ADD GOAL MODAL */
+document.getElementById("addBtn").onclick = () => {
+  document.getElementById("addModal").style.display = "flex";
+};
+document.getElementById("discardGoal").onclick = () => {
+  document.getElementById("addModal").style.display = "none";
+  document.getElementById("newGoalInput").value = "";
+};
+document.getElementById("saveGoal").onclick = () => {
+  const text = document.getElementById("newGoalInput").value.trim();
+  if (!text) return;
+  const goals = loadGoals();
+  goals.push({ text, done: false });
+  saveGoals(goals);
+  document.getElementById("addModal").style.display = "none";
+  document.getElementById("newGoalInput").value = "";
+  showAddedPopup();
+  renderGoals();
+};
+
+function showAddedPopup() {
+  const p = document.getElementById("addedPopup");
+  p.style.opacity = "1";
+  p.style.transform = "translate(-50%, -50%) scale(1)";
+  setTimeout(() => {
+    p.style.opacity = "0";
+    p.style.transform = "translate(-50%, -50%) scale(0.8)";
+  }, 900);
+}
+
+/* JOURNAL DRAFT + HISTORY */
+function journalDraftKey() {
+  return JOURNAL_DRAFT_KEY + today();
+}
+
+function loadJournalHistory() {
+  const raw = localStorage.getItem(JOURNAL_HISTORY_KEY);
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch { return []; }
+}
+function saveJournalHistory(list) {
+  localStorage.setItem(JOURNAL_HISTORY_KEY, JSON.stringify(list));
+}
+
+function saveJournalEntry() {
+  const titleInput = document.getElementById("journalTitleInput");
+  const textArea   = document.getElementById("journalText");
+  const title = (titleInput.value || "").trim() || "Untitled";
+  const text  = (textArea.value || "").trim();
+  if (!text) return;
+
+  const list = loadJournalHistory();
+  list.push({
+    date: today(),
+    title,
+    text,
+    ts: Date.now()
+  });
+  saveJournalHistory(list);
+  renderJournalHistory();
+}
+
+function deleteJournalEntry(ts) {
+  const list = loadJournalHistory();
+  const filtered = list.filter(entry => entry.ts !== ts);
+  saveJournalHistory(filtered);
+  renderJournalHistory();
+}
+
+function renderJournalHistory() {
+  const container = document.getElementById("journalHistoryList");
+  if (!container) return;
+
+  const list = loadJournalHistory().slice().sort((a,b)=>b.ts-a.ts);
+  container.innerHTML = "";
+
+  if (list.length === 0) {
+    const empty = document.createElement("div");
+    empty.textContent = "No saved journals yet.";
+    empty.style.color = "#9ca3af";
+    empty.style.fontSize = "0.85rem";
+    container.appendChild(empty);
+    return;
+  }
+
+  list.forEach(entry => {
+    const item = document.createElement("div");
+    item.className = "journalHistoryItem";
+
+    const header = document.createElement("div");
+    header.className = "journalHistoryHeader";
+
+    const metaWrap = document.createElement("div");
+    metaWrap.className = "journalHistoryMeta";
+
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = entry.title;
+
+    const dateSpan = document.createElement("span");
+    dateSpan.textContent = entry.date;
+    dateSpan.style.fontSize = "0.8rem";
+    dateSpan.style.color = "#9ca3af";
+
+    metaWrap.appendChild(titleSpan);
+    metaWrap.appendChild(dateSpan);
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "journalDeleteBtn";
+    delBtn.textContent = "Delete";
+    delBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      deleteJournalEntry(entry.ts);
+    };
+
+    header.appendChild(metaWrap);
+    header.appendChild(delBtn);
+
+    const body = document.createElement("div");
+    body.className = "journalHistoryBody";
+    body.textContent = entry.text;
+
+    header.onclick = () => {
+      body.style.display = body.style.display === "block" ? "none" : "block";
+    };
+
+    item.appendChild(header);
+    item.appendChild(body);
+    container.appendChild(item);
+  });
+}
+
+/* EMOTIONS */
+function loadEmotions() {
+  const key = EMO_KEY_PREFIX + currentWeekId();
+  const raw = localStorage.getItem(key);
+  return raw ? JSON.parse(raw) : {};
+}
+function saveEmotions(data) {
+  const key = EMO_KEY_PREFIX + currentWeekId();
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function renderEmotionSection() {
+  const chipsContainer = document.getElementById("emotionChips");
+  const jarInner = document.getElementById("emotionJarInner");
+  const jarSummary = document.getElementById("emotionJarSummary");
+  if (!chipsContainer || !jarInner || !jarSummary) return;
+
+  const data = loadEmotions();
+
+  chipsContainer.innerHTML = "";
+  EMOTIONS.forEach(e => {
+    const btn = document.createElement("button");
+    btn.className = "emotionChip";
+    btn.textContent = e.label;
+    btn.style.borderColor = e.color;
+    btn.style.color = e.color;
+    btn.onclick = () => {
+      const d = loadEmotions();
+      d[e.id] = (d[e.id] || 0) + 1;
+      saveEmotions(d);
+      renderEmotionSection();
+    };
+    chipsContainer.appendChild(btn);
+  });
+
+  jarInner.innerHTML = "";
+  const entries = Object.entries(data);
+  let total = 0;
+  entries.forEach(([_, c]) => total += c);
+
+  if (total === 0) {
+    jarSummary.textContent = "No emotions added yet this week.";
+    return;
+  }
+
+  const maxVisual = 40;
+  const factor = total > maxVisual ? maxVisual / total : 1;
+
+  entries.forEach(([id, count]) => {
+    const emo = EMOTIONS.find(e => e.id === id);
+    const visualCount = Math.max(1, Math.round(count * factor));
+    for (let i = 0; i < visualCount; i++) {
+      const pebble = document.createElement("div");
+      pebble.className = "emotionPebble";
+      pebble.style.backgroundColor = emo ? emo.color : "#e5c98a";
+      pebble.title = emo ? emo.label : id;
+      pebble.dataset.emotionId = id;
+      pebble.onclick = () => {
+        removeEmotion(id);
+      };
+      jarInner.appendChild(pebble);
+    }
+  });
+
+  let topId = null, topCount = 0;
+  entries.forEach(([id, count]) => {
+    if (count > topCount) {
+      topCount = count;
+      topId = id;
+    }
+  });
+  const labelFor = id => {
+    const f = EMOTIONS.find(e => e.id === id);
+    return f ? f.label : id;
+  };
+  const parts = entries.map(([id, c]) => `${labelFor(id)} (${c})`);
+  const topText = topId ? `Most felt: ${labelFor(topId)} (${topCount}). ` : "";
+  jarSummary.textContent = topText + "This week: " + parts.join(", ") + ".";
+}
+
+function removeEmotion(id) {
+  const data = loadEmotions();
+  if (!data[id]) return;
+  data[id] = data[id] - 1;
+  if (data[id] <= 0) delete data[id];
+  saveEmotions(data);
+  renderEmotionSection();
+}
+
+/* JOURNAL PANEL OPEN/CLOSE + DRAG */
+let journalOpen = false;
+const journalPanel = document.getElementById("journalPanel");
+const swipeBar = document.getElementById("swipeBar");
+
+function openJournal() {
+  journalPanel.style.transition = "left 0.25s ease-out";
+  journalPanel.style.left = "0px";
+  journalOpen = true;
+}
+function closeJournal() {
+  const width = journalPanel.offsetWidth || (window.innerWidth * 0.85);
+  journalPanel.style.transition = "left 0.25s ease-out";
+  journalPanel.style.left = (-width) + "px";
+  journalOpen = false;
+}
+
+document.getElementById("closeJournal").onclick = closeJournal;
+swipeBar.onclick = openJournal;
+
+/* Drag state for smooth finger control */
+let dragState = {
+  active: false,
+  startX: 0,
+  startLeft: 0,
+  width: 0
+};
+
+function beginDrag(e) {
+  const touch = e.touches[0];
+  dragState.active = true;
+  dragState.startX = touch.clientX;
+  const style = window.getComputedStyle(journalPanel);
+  dragState.startLeft = parseFloat(style.left) || 0;
+  dragState.width = journalPanel.offsetWidth || (window.innerWidth * 0.85);
+  journalPanel.style.transition = "none";
+}
+
+function moveDrag(e) {
+  if (!dragState.active) return;
+  const touch = e.touches[0];
+  const dx = touch.clientX - dragState.startX;
+  let newLeft = dragState.startLeft + dx;
+
+  const minLeft = -dragState.width;
+  if (newLeft < minLeft) newLeft = minLeft;
+  if (newLeft > 0) newLeft = 0;
+
+  journalPanel.style.left = newLeft + "px";
+  e.preventDefault();
+}
+
+function endDrag(e) {
+  if (!dragState.active) return;
+  dragState.active = false;
+
+  const style = window.getComputedStyle(journalPanel);
+  const currentLeft = parseFloat(style.left) || 0;
+  const width = dragState.width || journalPanel.offsetWidth || (window.innerWidth * 0.85);
+  const threshold = -width / 2;
+
+  journalPanel.style.transition = "left 0.25s ease-out";
+  if (currentLeft > threshold) {
+    journalPanel.style.left = "0px";
+    journalOpen = true;
+  } else {
+    journalPanel.style.left = (-width) + "px";
+    journalOpen = false;
+  }
+}
+
+/* Attach drag handlers on bar + panel */
+swipeBar.addEventListener("touchstart", beginDrag, { passive: true });
+swipeBar.addEventListener("touchmove", moveDrag, { passive: false });
+swipeBar.addEventListener("touchend", endDrag, { passive: true });
+journalPanel.addEventListener("touchstart", beginDrag, { passive: true });
+journalPanel.addEventListener("touchmove", moveDrag, { passive: false });
+journalPanel.addEventListener("touchend", endDrag, { passive: true });
+
+/* JOURNAL INIT */
+function initJournal() {
+  const jt = document.getElementById("journalText");
+  const draftKey = journalDraftKey();
+  jt.value = localStorage.getItem(draftKey) || "";
+  jt.oninput = () => localStorage.setItem(draftKey, jt.value);
+
+  document.getElementById("saveJournalBtn").onclick = () => {
+    saveJournalEntry();
+  };
+
+  renderJournalHistory();
+  renderEmotionSection();
+}
+
+/* WEEKLY CHALLENGE */
+function weekHash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function loadChallenge() {
+  const wk = currentWeekId();
+  const idx = weekHash(wk) % CHALLENGES.length;
+  const text = CHALLENGES[idx];
+  document.getElementById("challengeText").textContent = text;
+  document.getElementById("summaryChallengeText").textContent = text;
+}
+
+/* WEEKLY SUMMARY MODAL */
+document.getElementById("weeklySummaryBtn").onclick = () => {
+  fillWeeklySummary();
+  document.getElementById("summaryModal").style.display = "flex";
+};
+document.getElementById("closeSummaryBtn").onclick = () => {
+  document.getElementById("summaryModal").style.display = "none";
+};
+
+function fillWeeklySummary() {
+  const weekId = currentWeekId();
+  document.getElementById("summaryWeekLabel").textContent = "Week: " + weekId;
+
+  const streakData = JSON.parse(localStorage.getItem(STREAK_KEY)) || { streak: 0 };
+  document.getElementById("summaryStreakText").textContent =
+    "Current streak: " + streakData.streak + " days of fully completed goals.";
+
+  const emoData = loadEmotions();
+  const entries = Object.entries(emoData);
+  if (entries.length === 0) {
+    document.getElementById("summaryEmotionText").textContent =
+      "No emotions logged in the jar yet this week.";
+  } else {
+    let total = 0;
+    let topId = null;
+    let topCount = 0;
+    entries.forEach(([id, c]) => {
+      total += c;
+      if (c > topCount) {
+        topCount = c;
+        topId = id;
+      }
+    });
+    const labelFor = id => {
+      const f = EMOTIONS.find(e => e.id === id);
+      return f ? f.label : id;
+    };
+    const parts = entries.map(([id, c]) => `${labelFor(id)} (${c})`);
+    const topText = topId ? `Most present emotion: ${labelFor(topId)} (${topCount}). ` : "";
+    document.getElementById("summaryEmotionText").textContent =
+      topText + "Total logged: " + total + ". This week: " + parts.join(", ") + ".";
+  }
+}
+
+/* BACKGROUND THEME */
+function initBackground() {
+  const saved = localStorage.getItem(BG_KEY) || "plain";
+  document.body.setAttribute("data-bg", saved);
+  const buttons = document.querySelectorAll(".bgBtn");
+  buttons.forEach(btn => {
+    if (btn.getAttribute("data-bg") === saved) btn.classList.add("active");
+    btn.onclick = () => {
+      const theme = btn.getAttribute("data-bg");
+      localStorage.setItem(BG_KEY, theme);
+      document.body.setAttribute("data-bg", theme);
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
+  });
+}
+
+/* INIT */
+window.onload = () => {
+  setTimeout(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    document.getElementById("swipeBar").style.display = "block";
+
+    initBackground();
+    handleDailyReset();
+    loadVerseAndGodSays();
+    renderGoals();
+    updateStreak();
+    initJournal();
+    loadChallenge();
+
+    /* Ensure panel starts fully hidden in px units */
+    const width = journalPanel.offsetWidth || (window.innerWidth * 0.85);
+    journalPanel.style.left = (-width) + "px";
+  }, 1500);
+};
+</script>
+</body>
+</html>
