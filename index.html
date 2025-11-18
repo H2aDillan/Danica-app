@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-/* BODY THEMES */
+/* BODY THEMES (LIGHT BACKGROUNDS) */
 body {
   font-family: "Georgia", serif;
   color: var(--text);
@@ -53,6 +53,106 @@ body[data-bg="scripture"] {
     #ffffff 20px,
     #f7f0e0 21px
   );
+}
+
+/* DARK THEME OVERRIDES */
+body[data-theme="dark"] {
+  background: radial-gradient(circle at top, #020617, #020617);
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .card {
+  background: #020617;
+  border-color: #374151;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+}
+
+body[data-theme="dark"] .title {
+  color: #eab308;
+}
+
+body[data-theme="dark"] .verseBox {
+  background: #111827;
+  border-color: #4b5563;
+}
+
+body[data-theme="dark"] .verseText,
+body[data-theme="dark"] .godSaysText {
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .breakdownText,
+body[data-theme="dark"] .challengeBox,
+body[data-theme="dark"] .summaryText {
+  color: #9ca3af;
+}
+
+body[data-theme="dark"] .goalItem {
+  background: #111827;
+  border-color: #374151;
+}
+
+body[data-theme="dark"] .goalItem.done {
+  background: #1f2937;
+  border-color: #eab308;
+}
+
+body[data-theme="dark"] .readingBox {
+  border-top-color: #374151;
+}
+
+body[data-theme="dark"] .readingBarOuter {
+  background: #111827;
+}
+
+body[data-theme="dark"] #weeklySummaryBtn,
+body[data-theme="dark"] #closeSummaryBtn,
+body[data-theme="dark"] .journalDeleteBtn,
+body[data-theme="dark"] #closeJournal,
+body[data-theme="dark"] .discardBtn {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-color: #4b5563;
+}
+
+body[data-theme="dark"] #addBtn,
+body[data-theme="dark"] #saveJournalBtn,
+body[data-theme="dark"] .saveBtn {
+  background: #eab308;
+  color: #111827;
+}
+
+body[data-theme="dark"] .journalText {
+  background: #020617;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .journalHistoryItem {
+  background: #020617;
+  border-color: #374151;
+}
+
+body[data-theme="dark"] .emotionJar {
+  background: #020617;
+}
+
+body[data-theme="dark"] .emotionJarInner {
+  background: #111827;
+}
+
+body[data-theme="dark"] .bgBtn {
+  border-color: #4b5563;
+}
+
+body[data-theme="dark"] .bgBtn.active {
+  box-shadow: 0 0 0 2px #020617, 0 0 0 4px #eab308;
+}
+
+body[data-theme="dark"] .themeToggle {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #e5e7eb;
 }
 
 /* LOADING SCREEN */
@@ -121,7 +221,7 @@ body[data-bg="scripture"] {
 /* HEADER */
 .titleRow {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -131,6 +231,16 @@ body[data-bg="scripture"] {
   color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.themeToggle {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff6dd;
+  color: var(--text);
+  cursor: pointer;
 }
 
 /* VERSE BOX */
@@ -780,6 +890,7 @@ body[data-bg="scripture"] {
 
     <div class="titleRow">
       <div class="title">Weekly Goals</div>
+      <button id="themeToggle" class="themeToggle" aria-label="Toggle theme">Dark</button>
     </div>
 
     <div class="verseBox">
@@ -892,6 +1003,7 @@ const JOURNAL_HISTORY_KEY  = "danica_journal_history_v1";
 const EMO_KEY_PREFIX       = "danica_emotions_";
 const BG_KEY               = "danica_bg_theme_v1";
 const READING_KEY          = "danica_reading_v1";
+const THEME_KEY            = "danica_theme_v1";
 
 let baseGoals = [
   "No swearing.",
@@ -989,6 +1101,29 @@ function getWeekId(dateObj) {
 
 function currentWeekId() {
   return getWeekId(new Date());
+}
+
+/* THEME */
+function applyTheme(theme) {
+  document.body.setAttribute("data-theme", theme);
+  localStorage.setItem(THEME_KEY, theme);
+  const toggle = document.getElementById("themeToggle");
+  if (toggle) {
+    toggle.textContent = theme === "dark" ? "Light" : "Dark";
+  }
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || "light";
+  applyTheme(saved);
+  const toggle = document.getElementById("themeToggle");
+  if (toggle) {
+    toggle.onclick = () => {
+      const current = document.body.getAttribute("data-theme") || "light";
+      const next = current === "light" ? "dark" : "light";
+      applyTheme(next);
+    };
+  }
 }
 
 /* DAILY RESET */
@@ -1524,7 +1659,7 @@ function fillWeeklySummary() {
     });
     const labelFor = id => {
       const f = EMOTIONS.find(e => e.id === id);
-      return f ? e.label : id;
+      return f ? f.label : id;
     };
     const parts = entries.map(([id, c]) => `${labelFor(id)} (${c})`);
     const topText = topId ? `Most present emotion: ${labelFor(topId)} (${topCount}). ` : "";
@@ -1557,6 +1692,7 @@ window.onload = () => {
     document.getElementById("app").style.display = "block";
     document.getElementById("swipeBar").style.display = "block";
 
+    initTheme();
     initBackground();
     handleDailyReset();
     loadVerseAndGodSays();
