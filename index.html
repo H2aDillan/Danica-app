@@ -7,14 +7,14 @@
 
 <style>
 :root {
-  --bg: #faf7f2;
+  --bg: #ffffff;
   --gold: #d4af37;
-  --gold-soft: #e8d7a7;
-  --text: #3b3b3b;
-  --muted: #7d7d7d;
-  --border: #e0dacb;
-  --paper: #fffdf8;
-  --shadow: rgba(0,0,0,0.08);
+  --gold-soft: #f2dd99;
+  --text: #2b2c30;
+  --muted: #8a8c90;
+  --border: #eee4cc;
+  --paper: #ffffff;
+  --shadow: rgba(0,0,0,0.06);
 }
 
 /* RESET */
@@ -31,27 +31,27 @@ body {
   display: flex;
   justify-content: center;
   padding: 20px;
-  background: var(--bg);
+  background: radial-gradient(circle at top, #ffffff, #faf3dd);
 }
 
 body[data-bg="plain"] {
-  background: #faf7f2;
+  background: #ffffff;
 }
 body[data-bg="soft"] {
-  background: radial-gradient(circle at top, #fdfaf2, #f6efe0);
+  background: radial-gradient(circle at top, #ffffff, #faf3dd);
 }
 body[data-bg="golden"] {
-  background: linear-gradient(135deg, #fbf7ec, #f1e0b8);
+  background: linear-gradient(135deg, #ffffff, #f7e7b8);
 }
 body[data-bg="floral"] {
-  background: radial-gradient(circle at top left, #fdf9f2, #f7f0e6);
+  background: radial-gradient(circle at top left, #ffffff, #f9f1e4);
 }
 body[data-bg="scripture"] {
   background: repeating-linear-gradient(
     180deg,
-    #faf7f2,
-    #faf7f2 20px,
-    #f5efe2 21px
+    #ffffff,
+    #ffffff 20px,
+    #f7f0e0 21px
   );
 }
 
@@ -59,7 +59,7 @@ body[data-bg="scripture"] {
 #loadingScreen {
   position: fixed;
   inset: 0;
-  background: var(--paper);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,10 +112,10 @@ body[data-bg="scripture"] {
 
 .card {
   background: var(--paper);
-  padding: 20px;
-  border-radius: 16px;
+  padding: 20px 18px 22px;
+  border-radius: 18px;
   border: 1px solid var(--border);
-  box-shadow: 0 10px 35px var(--shadow);
+  box-shadow: 0 16px 40px var(--shadow);
 }
 
 /* HEADER */
@@ -126,19 +126,19 @@ body[data-bg="scripture"] {
 }
 
 .title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: var(--gold);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
 
 /* VERSE BOX */
 .verseBox {
-  margin-top: 14px;
-  padding: 14px;
-  background: var(--paper);
-  border-radius: 12px;
+  margin-top: 16px;
+  padding: 14px 14px 12px;
+  background: #fffdf6;
+  border-radius: 14px;
   border: 1px solid var(--gold-soft);
 }
 
@@ -152,7 +152,7 @@ body[data-bg="scripture"] {
 
 .verseRef {
   color: var(--gold);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: 0.05em;
 }
 
@@ -167,6 +167,7 @@ body[data-bg="scripture"] {
   font-size: 1rem;
   line-height: 1.4;
   margin-bottom: 6px;
+  color: var(--text);
 }
 
 .breakdownLabel {
@@ -200,7 +201,7 @@ body[data-bg="scripture"] {
 
 /* STREAK */
 .streakBox {
-  margin-top: 12px;
+  margin-top: 14px;
   font-size: 1rem;
   font-weight: bold;
   color: var(--gold);
@@ -220,7 +221,7 @@ body[data-bg="scripture"] {
 
 /* PROGRESS */
 .progressRow {
-  margin: 14px 0;
+  margin: 16px 0 6px;
   display: flex;
   justify-content: space-between;
   color: var(--muted);
@@ -229,10 +230,10 @@ body[data-bg="scripture"] {
 .progressBarOuter {
   width: 100%;
   height: 6px;
-  background: #eee6cf;
+  background: #f5eedb;
   border-radius: 10px;
   overflow: hidden;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 #progressFill {
@@ -248,10 +249,10 @@ body[data-bg="scripture"] {
 }
 
 .goalItem {
-  background: var(--bg);
+  background: #ffffff;
   padding: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
+  border-radius: 12px;
+  border: 1px solid #f0e6d1;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -259,7 +260,7 @@ body[data-bg="scripture"] {
 }
 
 .goalItem.done {
-  background: #fff7d6;
+  background: #fffbe3;
   border-color: var(--gold-soft);
 }
 
@@ -270,12 +271,12 @@ body[data-bg="scripture"] {
 
 /* ADD GOAL BUTTON */
 #addBtn {
-  margin: 16px 0;
+  margin: 18px 0 10px;
   background: var(--gold);
   border: none;
   color: white;
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 1rem;
   font-weight: bold;
   width: 100%;
@@ -284,7 +285,7 @@ body[data-bg="scripture"] {
 
 /* BACKGROUND OPTIONS */
 .bgOptions {
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 0.85rem;
   color: var(--muted);
 }
@@ -303,12 +304,12 @@ body[data-bg="scripture"] {
   cursor: pointer;
 }
 
-.bgBtn[data-bg="plain"]   { background: #faf7f2; }
-.bgBtn[data-bg="soft"]    { background: radial-gradient(circle at top, #fdfaf2, #f6efe0); }
-.bgBtn[data-bg="golden"]  { background: linear-gradient(135deg, #fbf7ec, #f1e0b8); }
-.bgBtn[data-bg="floral"]  { background: radial-gradient(circle at top left, #fdf9f2, #f7f0e6); }
+.bgBtn[data-bg="plain"]   { background: #ffffff; }
+.bgBtn[data-bg="soft"]    { background: radial-gradient(circle at top, #ffffff, #faf3dd); }
+.bgBtn[data-bg="golden"]  { background: linear-gradient(135deg, #ffffff, #f7e7b8); }
+.bgBtn[data-bg="floral"]  { background: radial-gradient(circle at top left, #ffffff, #f9f1e4); }
 .bgBtn[data-bg="scripture"]{
-  background: repeating-linear-gradient(180deg, #faf7f2, #faf7f2 8px, #f5efe2 9px);
+  background: repeating-linear-gradient(180deg, #ffffff, #ffffff 8px, #f7f0e0 9px);
 }
 
 .bgBtn.active {
@@ -354,7 +355,7 @@ body[data-bg="scripture"] {
 .readingBtn {
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #f3ebd6;
+  background: #fff8e0;
   padding: 2px 8px;
   font-size: 0.8rem;
   cursor: pointer;
@@ -368,7 +369,7 @@ body[data-bg="scripture"] {
 .readingBarOuter {
   width: 100%;
   height: 4px;
-  background: #eee6cf;
+  background: #f6eed7;
   border-radius: 999px;
   overflow: hidden;
   margin-bottom: 6px;
@@ -382,12 +383,12 @@ body[data-bg="scripture"] {
 
 /* WEEKLY SUMMARY BUTTON */
 #weeklySummaryBtn {
-  margin-top: 10px;
-  background: #ddd6c1;
+  margin-top: 12px;
+  background: #fff6dd;
   border: none;
   color: var(--text);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 0.95rem;
   width: 100%;
   cursor: pointer;
@@ -442,7 +443,7 @@ body[data-bg="scripture"] {
 }
 
 .discardBtn {
-  background: #ddd6c1;
+  background: #fff6dd;
   color: var(--text);
 }
 
@@ -463,18 +464,19 @@ body[data-bg="scripture"] {
   z-index: 80;
 }
 
-/* JOURNAL SWIPE BAR */
+/* JOURNAL SWIPE BAR (HANDLE) */
 #swipeBar {
   position: fixed;
   left: 0;
   top: 40%;
-  width: 14px;
-  height: 80px;
-  background: var(--gold);
-  border-radius: 0 10px 10px 0;
-  opacity: 0.8;
+  width: 24px;
+  height: 120px;
+  background: linear-gradient(90deg, #fff3bf, #d4af37);
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  opacity: 0.98;
   z-index: 90;
-  display: none; /* hidden until app shows */
+  display: none; /* shown after app loads */
 }
 
 /* JOURNAL PANEL */
@@ -484,7 +486,7 @@ body[data-bg="scripture"] {
   top: 0;
   width: 85%;
   height: 100%;
-  background: var(--paper);
+  background: #ffffff;
   border-right: 1px solid var(--gold-soft);
   box-shadow: 6px 0 20px var(--shadow);
   padding: 20px;
@@ -530,7 +532,7 @@ body[data-bg="scripture"] {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: var(--paper);
+  background: #fffdf6;
   font-family: "Georgia";
   resize: none;
   margin-bottom: 12px;
@@ -557,7 +559,7 @@ body[data-bg="scripture"] {
   border: 1px solid var(--border);
   padding: 6px 8px;
   margin-bottom: 6px;
-  background: #faf6ec;
+  background: #ffffff;
 }
 
 .journalHistoryHeader {
@@ -584,9 +586,9 @@ body[data-bg="scripture"] {
 .journalDeleteBtn {
   font-size: 0.78rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 4px 8px;
-  background: #f3ebd6;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fff6dd;
   color: var(--text);
   flex-shrink: 0;
 }
@@ -620,7 +622,7 @@ body[data-bg="scripture"] {
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--gold-soft);
-  background: var(--bg);
+  background: #ffffff;
   font-size: 0.85rem;
   cursor: pointer;
 }
@@ -633,7 +635,7 @@ body[data-bg="scripture"] {
   border-radius: 12px;
   border: 1px solid var(--gold-soft);
   padding: 10px;
-  background: #fffaf0;
+  background: #fffdf6;
 }
 
 .emotionJarLabel {
@@ -651,7 +653,7 @@ body[data-bg="scripture"] {
   flex-wrap: wrap;
   gap: 4px;
   align-items: flex-end;
-  background: #fffdf7;
+  background: #ffffff;
   margin-bottom: 6px;
 }
 
@@ -670,7 +672,7 @@ body[data-bg="scripture"] {
 /* JOURNAL CLOSE BUTTON */
 #closeJournal {
   width: 100%;
-  background: #ddd6c1;
+  background: #fff6dd;
   border: none;
   padding: 10px;
   border-radius: 10px;
@@ -720,7 +722,7 @@ body[data-bg="scripture"] {
 #closeSummaryBtn {
   margin-top: 12px;
   width: 100%;
-  background: #ddd6c1;
+  background: #fff6dd;
   border: none;
   padding: 10px;
   border-radius: 10px;
@@ -1019,7 +1021,7 @@ function renderGoals() {
   const goals = loadGoals();
   let doneCount = 0;
 
-  goals.forEach((goal, i) => {
+  goals.forEach(goal => {
     const div = document.createElement("div");
     div.className = "goalItem" + (goal.done ? " done" : "");
 
@@ -1452,7 +1454,7 @@ function endDrag(e) {
   }
 }
 
-/* Attach drag handlers ONLY on swipe bar (panel itself scrolls freely) */
+/* Attach drag handlers ONLY on swipe bar (panel scrolls freely) */
 swipeBar.addEventListener("touchstart", beginDrag, { passive: true });
 swipeBar.addEventListener("touchmove", moveDrag, { passive: false });
 swipeBar.addEventListener("touchend", endDrag, { passive: true });
@@ -1522,7 +1524,7 @@ function fillWeeklySummary() {
     });
     const labelFor = id => {
       const f = EMOTIONS.find(e => e.id === id);
-      return f ? f.label : id;
+      return f ? e.label : id;
     };
     const parts = entries.map(([id, c]) => `${labelFor(id)} (${c})`);
     const topText = topId ? `Most present emotion: ${labelFor(topId)} (${topCount}). ` : "";
@@ -1533,7 +1535,7 @@ function fillWeeklySummary() {
 
 /* BACKGROUND THEME */
 function initBackground() {
-  const saved = localStorage.getItem(BG_KEY) || "plain";
+  const saved = localStorage.getItem(BG_KEY) || "soft";
   document.body.setAttribute("data-bg", saved);
   const buttons = document.querySelectorAll(".bgBtn");
   buttons.forEach(btn => {
@@ -1565,7 +1567,6 @@ window.onload = () => {
     loadDailyChallenge();
     renderReading();
 
-    /* Ensure panel starts fully hidden in px units */
     const width = journalPanel.offsetWidth || (window.innerWidth * 0.85);
     journalPanel.style.left = (-width) + "px";
   }, 1500);
