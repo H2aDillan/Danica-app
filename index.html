@@ -206,7 +206,7 @@ body[data-bg="scripture"] {
   color: var(--gold);
 }
 
-/* CHALLENGE */
+/* CHALLENGES */
 .challengeBox {
   margin-top: 6px;
   font-size: 0.9rem;
@@ -315,9 +315,74 @@ body[data-bg="scripture"] {
   box-shadow: 0 0 0 2px white, 0 0 0 4px var(--gold-soft);
 }
 
+/* READING TRACKER */
+.readingBox {
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.readingTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+#readingList {
+  font-size: 0.9rem;
+}
+
+.readingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 6px;
+}
+
+.readingBookName {
+  flex: 1;
+}
+
+.readingControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.readingBtn {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f3ebd6;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.readingProgressLabel {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.readingBarOuter {
+  width: 100%;
+  height: 4px;
+  background: #eee6cf;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.readingBarFill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+}
+
 /* WEEKLY SUMMARY BUTTON */
 #weeklySummaryBtn {
-  margin-top: 14px;
+  margin-top: 10px;
   background: #ddd6c1;
   border: none;
   color: var(--text);
@@ -518,11 +583,11 @@ body[data-bg="scripture"] {
 
 .journalDeleteBtn {
   font-size: 0.78rem;
-  border: none;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 4px 8px;
-  background: #ef4444;
-  color: white;
+  background: #f3ebd6;
+  color: var(--text);
   flex-shrink: 0;
 }
 
@@ -734,6 +799,11 @@ body[data-bg="scripture"] {
       <span class="challengeHighlight" id="challengeText"></span>
     </div>
 
+    <div class="challengeBox">
+      Today’s challenge from Dillan ❤️:
+      <span class="challengeHighlight" id="dailyChallengeText"></span>
+    </div>
+
     <div class="progressRow">
       <div>Completed: <span id="progressLabel">0 / 11</span></div>
     </div>
@@ -758,6 +828,12 @@ body[data-bg="scripture"] {
         <div class="bgBtn" data-bg="floral"  title="Floral"></div>
         <div class="bgBtn" data-bg="scripture" title="Scripture lines"></div>
       </div>
+    </div>
+
+    <!-- BIBLE READING TRACKER -->
+    <div class="readingBox">
+      <div class="readingTitle">Bible reading tracker</div>
+      <div id="readingList"></div>
     </div>
 
     <button id="weeklySummaryBtn">Weekly Summary</button>
@@ -813,6 +889,7 @@ const JOURNAL_DRAFT_KEY    = "danica_journal_draft_";
 const JOURNAL_HISTORY_KEY  = "danica_journal_history_v1";
 const EMO_KEY_PREFIX       = "danica_emotions_";
 const BG_KEY               = "danica_bg_theme_v1";
+const READING_KEY          = "danica_reading_v1";
 
 let baseGoals = [
   "No swearing.",
@@ -874,6 +951,25 @@ const CHALLENGES = [
   "Replace one negative thought each day with a promise from God.",
   "Fast from complaining for 24 hours.",
   "Write down three blessings each day."
+];
+
+const DAILY_CHALLENGES = [
+  "Send one encouraging message to someone who might need it.",
+  "Read one chapter of Proverbs and share one thing you learned.",
+  "Write down three things you love about how God made you.",
+  "Pray for someone who hurt you and release them to God.",
+  "Do one quiet act of kindness that nobody knows about.",
+  "Take a 5-minute break today just to breathe and thank God.",
+  "Finish your day by telling God honestly how you really feel."
+];
+
+const READING_BOOKS = [
+  { id: "matthew", name: "Matthew", chapters: 28 },
+  { id: "mark",    name: "Mark",    chapters: 16 },
+  { id: "luke",    name: "Luke",    chapters: 24 },
+  { id: "john",    name: "John",    chapters: 21 },
+  { id: "psalms",  name: "Psalms",  chapters: 150 },
+  { id: "proverbs",name: "Proverbs",chapters: 31 }
 ];
 
 function today() {
@@ -981,6 +1077,13 @@ function loadVerseAndGodSays() {
   document.getElementById("verseText").textContent = v.text;
   document.getElementById("verseBreakdown").textContent = v.breakdown;
   document.getElementById("godSaysText").textContent = msg;
+}
+
+/* DAILY CHALLENGE FROM DILLAN */
+function loadDailyChallenge() {
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const text = DAILY_CHALLENGES[dayIndex % DAILY_CHALLENGES.length];
+  document.getElementById("dailyChallengeText").textContent = text;
 }
 
 /* ADD GOAL MODAL */
@@ -1203,6 +1306,81 @@ function removeEmotion(id) {
   renderEmotionSection();
 }
 
+/* READING TRACKER */
+function loadReading() {
+  const raw = localStorage.getItem(READING_KEY);
+  if (!raw) return {};
+  try { return JSON.parse(raw); } catch { return {}; }
+}
+function saveReading(state) {
+  localStorage.setItem(READING_KEY, JSON.stringify(state));
+}
+
+function renderReading() {
+  const container = document.getElementById("readingList");
+  if (!container) return;
+
+  const state = loadReading();
+  container.innerHTML = "";
+
+  READING_BOOKS.forEach(book => {
+    const current = state[book.id] || 0;
+    const safeCurrent = Math.min(Math.max(current, 0), book.chapters);
+    const percent = (safeCurrent / book.chapters) * 100;
+
+    const row = document.createElement("div");
+    row.className = "readingRow";
+
+    const name = document.createElement("div");
+    name.className = "readingBookName";
+    name.textContent = book.name;
+
+    const controls = document.createElement("div");
+    controls.className = "readingControls";
+
+    const minus = document.createElement("button");
+    minus.className = "readingBtn";
+    minus.textContent = "-";
+    minus.onclick = () => {
+      const st = loadReading();
+      st[book.id] = Math.max((st[book.id] || 0) - 1, 0);
+      saveReading(st);
+      renderReading();
+    };
+
+    const label = document.createElement("span");
+    label.className = "readingProgressLabel";
+    label.textContent = `${safeCurrent}/${book.chapters}`;
+
+    const plus = document.createElement("button");
+    plus.className = "readingBtn";
+    plus.textContent = "+";
+    plus.onclick = () => {
+      const st = loadReading();
+      st[book.id] = Math.min((st[book.id] || 0) + 1, book.chapters);
+      saveReading(st);
+      renderReading();
+    };
+
+    controls.appendChild(minus);
+    controls.appendChild(label);
+    controls.appendChild(plus);
+
+    row.appendChild(name);
+    row.appendChild(controls);
+
+    const barOuter = document.createElement("div");
+    barOuter.className = "readingBarOuter";
+    const barFill = document.createElement("div");
+    barFill.className = "readingBarFill";
+    barFill.style.width = percent + "%";
+    barOuter.appendChild(barFill);
+
+    container.appendChild(row);
+    container.appendChild(barOuter);
+  });
+}
+
 /* JOURNAL PANEL OPEN/CLOSE + DRAG */
 let journalOpen = false;
 const journalPanel = document.getElementById("journalPanel");
@@ -1223,7 +1401,7 @@ function closeJournal() {
 document.getElementById("closeJournal").onclick = closeJournal;
 swipeBar.onclick = openJournal;
 
-/* Drag state for smooth finger control */
+/* Drag state for smooth finger control (only on the handle) */
 let dragState = {
   active: false,
   startX: 0,
@@ -1274,13 +1452,10 @@ function endDrag(e) {
   }
 }
 
-/* Attach drag handlers on bar + panel */
+/* Attach drag handlers ONLY on swipe bar (panel itself scrolls freely) */
 swipeBar.addEventListener("touchstart", beginDrag, { passive: true });
 swipeBar.addEventListener("touchmove", moveDrag, { passive: false });
 swipeBar.addEventListener("touchend", endDrag, { passive: true });
-journalPanel.addEventListener("touchstart", beginDrag, { passive: true });
-journalPanel.addEventListener("touchmove", moveDrag, { passive: false });
-journalPanel.addEventListener("touchend", endDrag, { passive: true });
 
 /* JOURNAL INIT */
 function initJournal() {
@@ -1387,6 +1562,8 @@ window.onload = () => {
     updateStreak();
     initJournal();
     loadChallenge();
+    loadDailyChallenge();
+    renderReading();
 
     /* Ensure panel starts fully hidden in px units */
     const width = journalPanel.offsetWidth || (window.innerWidth * 0.85);
